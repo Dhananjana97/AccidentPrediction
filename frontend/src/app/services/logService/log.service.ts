@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { priviledges } from './../../Roles/roles';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,11 @@ export class LogService {
   
   user_type : string = "Admin";
 
-  priviledges = {
-    Admin: ["Admin_task_1", "Admin_task_2", "Admin_task3"],
-    Staff: ["Staff_task_1", "Staff_task_2"],
-    Officer: ["Officer_task_1"]
-  };
+  priviledges_list = priviledges;
 
   loginInfo = {
     user_type: this.user_type,
-    priviledges: this.priviledges[this.user_type],
+    priviledges: this.priviledges_list[this.user_type],
     first_name: 'Andrew',
     last_name: 'Yang',
     avatar: 'ay.jpeg',

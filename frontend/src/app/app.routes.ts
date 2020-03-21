@@ -1,5 +1,7 @@
 import { LoginComponent } from "./components/login/login.component";
 import { DashboardComponent} from "./components/dashboard/dashboard.component";
+import { RolerequestsComponent } from "./components/rolerequests/rolerequests.component";
+import { priviledges } from './Roles/roles';
 
 export const appRoutes = [
     {
@@ -7,11 +9,11 @@ export const appRoutes = [
         component: DashboardComponent
     },
     {
-        path: 'others',
-        loadChildren: './components/others/others.module#OthersModule'
-    },
-    {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: priviledges.Admin[0].url_name,
+        component: RolerequestsComponent
     }
 ];

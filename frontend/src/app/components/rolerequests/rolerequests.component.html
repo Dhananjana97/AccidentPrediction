@@ -1,0 +1,24 @@
+<table class="table">
+    <thead class="thread">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Current Role</th>
+            <th scope="col">Requested Role</th>
+            <th scope="col">Description</th>
+            <th scope="col">Requested Date</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let request of requests">
+            <td></td>
+            <td>{{request.name}}</td>
+            <td>{{request.current_role}}</td>
+            <td>{{request.requested_role}}</td>
+            <td>{{request.description}}</td>
+            <td>{{request.requested_date}}</td>
+            <td><button (click)="confirm(request.id)">Confirm</button><br><button (click)="cancel(request.id)">Cancel</button></td>
+        </tr>
+    </tbody>
+</table>

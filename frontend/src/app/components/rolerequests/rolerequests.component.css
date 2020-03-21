@@ -1,0 +1,22 @@
+.thread {
+    background-color: #2f4050;
+    color: beige;
+}
+
+.table {
+    top: 20px;
+    position: relative;
+    border: groove;
+}
+
+button {
+    margin: 3px;
+}
+
+table tr {
+    counter-increment: row-num;
+}
+
+table tr td:first-child::before {
+    content: counter(row-num) ". ";
+}

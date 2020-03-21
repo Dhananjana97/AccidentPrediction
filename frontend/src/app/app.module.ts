@@ -11,6 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { appRoutes } from "./app.routes";
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { TopnavbarComponent } from './components/topnavbar/topnavbar.component';
+import { RolerequestsComponent } from './components/rolerequests/rolerequests.component';
 
 
 
@@ -25,7 +26,8 @@ import { TopnavbarComponent } from './components/topnavbar/topnavbar.component';
     DashboardComponent,
     LoginComponent,
     NavigationComponent,
-    TopnavbarComponent
+    TopnavbarComponent,
+    RolerequestsComponent
   ],
   imports: [
     BrowserModule,

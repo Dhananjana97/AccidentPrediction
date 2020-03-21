@@ -13,7 +13,8 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit() { }
   activeRoute(routename: string): boolean{
-      return this.router.url.indexOf(routename) > -1;
+      return this.router.url.indexOf(routename.trim().toLowerCase()) > -1;
   }
+
 
 }
