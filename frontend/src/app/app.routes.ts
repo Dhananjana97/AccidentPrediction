@@ -1,5 +1,4 @@
-import { HomeComponent } from "./pages/home/home.component";
-import { LoginComponent } from "./pages/login/login.component";
+import { LoginComponent } from "./components/login/login.component";
 import { DashboardComponent} from "./components/dashboard/dashboard.component";
 
 export const appRoutes = [
@@ -16,4 +15,3 @@ export const appRoutes = [
         component: LoginComponent
     }
 ];
-

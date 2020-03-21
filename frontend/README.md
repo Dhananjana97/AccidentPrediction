@@ -1,23 +1,27 @@
-# Admin panel and UI Components for Angular.
+# AccidentAnalyzer
 
-Start your own Angular project with ng-dashboard in minutes!
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
 
-## Demo
+## Development server
 
-<a target="_blank" href="https://ddvkid.github.io/ng-dashboard"><img src="./screenshot.png" width="600" alt="Sky Blue"/></a>
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-<a target="_blank" href="https://ddvkid.github.io/ng-dashboard">Live Demo</a>
+## Code scaffolding
 
-## How to start
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-You will need to clone the source code of ng-dashboard GitHub repository.
+## Build
 
-`git clone https://github.com/ddvkid/ng-bootstrap.git`
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-After the repository is cloned, go inside of the repository directory and install dependencies:
+## Running unit tests
 
-```
-cd ng-dashboard
-npm install
-npm start
-```
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

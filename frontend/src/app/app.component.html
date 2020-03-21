@@ -1,2 +1,10 @@
-<app-login *ngIf="!logged"></app-login>
-<home *ngIf="logged"></home>
+<!-- <h1>
+    AAAAAAA
+</h1>
+<button (click)="setlog()">
+  aaaaaaaaaaaaaaaaaaaaaaaaa
+</button>
+<router-outlet></router-outlet> -->
+
+<app-login *ngIf="!user_has_logged"></app-login>
+<home *ngIf="user_has_logged"></home>
