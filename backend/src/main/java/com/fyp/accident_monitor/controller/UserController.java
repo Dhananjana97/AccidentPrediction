@@ -4,10 +4,8 @@ import com.fyp.accident_monitor.Entities.User;
 import com.fyp.accident_monitor.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;
 
@@ -31,5 +29,10 @@ public class UserController {
     public User getUserDetailsByName(@PathVariable(name = "username") String userName) throws NoSuchElementException {
         return userServices.getUserDetailsByName(userName);
 
+    }
+
+    @PostMapping(path = "/usersignup",consumes = "application/json",produces = "application/json")
+    public User requestUserSignup(@RequestBody User user){
+        return  userServices.saveUserRegRequest(user);
     }
 }

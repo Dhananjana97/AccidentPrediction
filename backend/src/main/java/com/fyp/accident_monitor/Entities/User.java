@@ -12,10 +12,15 @@ import java.io.Serializable;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer user_id;
 
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    private Rank rank;
+
+    private int status;
 
 
     public User(Integer user_id, String name) {
@@ -41,5 +46,21 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

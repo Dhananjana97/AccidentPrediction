@@ -18,5 +18,7 @@ public interface UserServices {
 
     User getUserDetailsByName(String name) throws NoSuchElementException;
 
+    User saveUserRegRequest(User user);
+
 }
 
