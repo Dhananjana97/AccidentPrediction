@@ -1,0 +1,24 @@
+<table class="table">
+    <thead class="thread">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Current Role</th>
+            <th scope="col">Description</th>
+            <th scope="col">Registered Date</th>
+            <th scope="col">User Profile</th>
+            <th scope="col">New Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of userData">
+            <td></td>
+            <td>{{user.name}}</td>
+            <td>{{user.current_role}}</td>
+            <td>{{user.description}}</td>
+            <td>{{user.registered_date}}</td>
+            <td><button (click)="showProfile(user.id)">Profile</button></td>
+            <td><button (click)="changeRole(user.id,role)" *ngFor="let role of user.other_roles">{{role}}</button></td>
+        </tr>
+    </tbody>
+</table>

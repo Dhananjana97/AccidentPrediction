@@ -23,6 +23,9 @@
             <li [ngClass]="{active: activeRoute('dashboard')}">
                 <a [routerLink]="['./dashboard']"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboards</span></a>
             </li>
+            <li [ngClass]="{active: activeRoute('profile')}">
+                <a [routerLink]="['./profile']"><i class="fa fa-user"></i> <span class="nav-label">User Profile</span></a>
+            </li>
             <li *ngFor="let priviledge of loginInfo.priviledges" [ngClass]="{active: activeRoute(priviledge.url_name)}">
                 <a [routerLink]="['./'+priviledge.url_name]"><i class={{priviledge.icon_class}}></i> <span class="nav-label">{{priviledge.web_name}}</span></a>
             </li>

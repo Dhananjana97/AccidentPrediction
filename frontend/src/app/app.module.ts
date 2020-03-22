@@ -12,6 +12,8 @@ import { appRoutes } from "./app.routes";
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { TopnavbarComponent } from './components/topnavbar/topnavbar.component';
 import { RolerequestsComponent } from './components/rolerequests/rolerequests.component';
+import { ManagerolesComponent } from './components/manageroles/manageroles.component';
+import { UserprofileComponent } from './components/userprofile/userprofile.component';
 
 
 
@@ -27,7 +29,9 @@ import { RolerequestsComponent } from './components/rolerequests/rolerequests.co
     LoginComponent,
     NavigationComponent,
     TopnavbarComponent,
-    RolerequestsComponent
+    RolerequestsComponent,
+    ManagerolesComponent,
+    UserprofileComponent
   ],
   imports: [
     BrowserModule,
