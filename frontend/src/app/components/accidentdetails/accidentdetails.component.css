@@ -1,0 +1,68 @@
+.thread {
+    background-color: #2f4050;
+    color: beige;
+}
+
+.table {
+    top: 20px;
+    position: relative;
+    border: groove;
+}
+
+button {
+    margin: 3px;
+}
+
+.mat-header-cell {
+    padding: 12px;
+}
+
+.mat-cell {
+    padding: 12px;
+}
+
+.ng-container {
+    margin: 12px;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #1ab394 !important;
+}
+
+ ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: #1ab394 !important;
+}
+
+ ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: #1ab394 !important;
+    ;
+}
+
+.full_table {
+    margin: 23px;
+}
+
+.mat-icon {
+    margin: 5px;
+}
+
+.mat-icon.edit {
+    color: #1ab394;
+}
+
+.mat-icon.delete {
+    color: brown;
+}
+
+th {
+    background-color: #2f4050;
+    color: cornsilk;
+}

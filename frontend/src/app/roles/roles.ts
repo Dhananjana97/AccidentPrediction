@@ -9,8 +9,19 @@ export const priviledges = {
       url_name: "manageroles",
       web_name: "Manage Roles",
       icon_class: "fa fa-users"
+    },
+    {
+      url_name: "accidenttable",
+      web_name: "Accident Details",
+      icon_class: "fa fa-wheelchair"
     }
   ],
-  Staff: ["Staff_task_1", "Staff_task_2"],
+  Staff: [
+    {
+      url_name: "accidenttable",
+      web_name: "Accident Details",
+      icon_class: "fa fa-wheelchair"
+    }
+  ],
   Officer: ["Officer_task_1"]
 };

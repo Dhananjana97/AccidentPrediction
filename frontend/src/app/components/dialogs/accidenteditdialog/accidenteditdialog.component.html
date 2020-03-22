@@ -1,0 +1,121 @@
+<form>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Edit Accident</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="inputBox ">
+                <div class="inputText">Grid ref Easting</div>
+                <input [(ngModel)]="data.grid_ref_easting" type="text" name="grid-east" class="input" value={{data.grid_ref_easting}}>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="inputBox">
+                <div class="inputText">Grid ref Northing</div>
+                <input [(ngModel)]="data.grid_ref_northing" type="text" name="grid-north" class="input" value={{data.grid_ref_northing}}>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="inputBox">
+                <div class="inputText">Road surface</div>
+                <input [(ngModel)]="data.road_surface" type="text" name="road-surface" class="input" value={{data.road_surface}}>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="inputBox">
+                <div class="inputText">Vehicle Amount</div>
+                <input [(ngModel)]="data.vehicle_amount" type="text" name="vehicle-amount" class="input" value={{data.vehicle_amount}}>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="inputBox">
+                <div class="inputText">Date</div>
+                <input [(ngModel)]="data.date" type="text" name="date" class="input" value={{data.date}}>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="inputBox">
+                <div class="inputText">Time</div>
+                <input [(ngModel)]="data.time" type="text" name="time" class="input" value={{data.time}}>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="inputBox">
+                <div class="inputText">First road class</div>
+                <input [(ngModel)]="data.first_road_class" type="text" name="first-road-class" class="input" value={{data.first_road_class}}>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="inputBox">
+                <div class="inputText">LIghtning condition</div>
+                <input [(ngModel)]="data.lightning_condition" type="text" name="linghtning" class="input" value={{data.lightning_condition}}>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="inputBox">
+                <div class="inputText">Weather condition</div>
+                <input [(ngModel)]="data.weather_condition" type="text" name="weather" class="input" value={{data.weather_condition}}>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="inputBox">
+                <div class="inputText">Vehicle type</div>
+                <input [(ngModel)]="data.vehicle_type" type="text" name="vehicle-type" class="input" value={{data.vehicle_type}}>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="inputBox">
+                <div class="inputText"> Casualty class</div>
+                <input [(ngModel)]="data.casualty_class" type="text" name="class" class="input" value={{data.casualty_class}}>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="inputBox">
+                <div class="inputText">Casualty severity</div>
+                <input [(ngModel)]="data.casualty_severity" type="text" name="severity" class="input" value={{data.casualty_severity}}>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="inputBox">
+                <div class="inputText">Sex</div>
+                <input [(ngModel)]="data.casualty_sex" type="text" name="sex" class="input" value={{data.casualty_sex}}>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="inputBox">
+                <div class="inputText">Age</div>
+                <input [(ngModel)]="data.casualty_age" type="text" name="age" class="input" value={{data.casualty_age}}>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div mat-dialog-action class="col-sm-12">
+            <button [mat-dialog-close]="data" mat-raised-button>Edit</button>
+        </div>
+    </div>
+</form>

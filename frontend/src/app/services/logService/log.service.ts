@@ -10,7 +10,7 @@ export class LogService {
 
   logged: boolean = true;
   
-  user_type : string = "Admin";
+  user_type : string = "Staff";
 
   priviledges_list = priviledges;
 
@@ -33,6 +33,10 @@ export class LogService {
 
   getLoginInfo(){
     return this.loginInfo;
+  }
+
+  getUserType(){
+    return this.user_type;
   }
   
 }

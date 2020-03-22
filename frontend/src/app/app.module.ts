@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { loggedInGuards } from './guards/loggedInGuard';
+import { AdminGuard, StaffGuard, OfficerGuard } from './guards/guard';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -14,12 +14,19 @@ import { TopnavbarComponent } from './components/topnavbar/topnavbar.component';
 import { RolerequestsComponent } from './components/rolerequests/rolerequests.component';
 import { ManagerolesComponent } from './components/manageroles/manageroles.component';
 import { UserprofileComponent } from './components/userprofile/userprofile.component';
+import { AccidentdetailsComponent } from './components/accidentdetails/accidentdetails.component';
+import { AccidenteditdialogComponent } from './components/dialogs/accidenteditdialog/accidenteditdialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatTableModule} from '@angular/material/table';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
+import { DeletedialogComponent } from './components/dialogs/deletedialog/deletedialog.component';
 
 
-
-// const routes: Routes = [
-//   {path: '', component: HomeComponent, canActivate : [loggedInGuards]},
-// ];
 
 @NgModule({
   declarations: [
@@ -31,14 +38,29 @@ import { UserprofileComponent } from './components/userprofile/userprofile.compo
     TopnavbarComponent,
     RolerequestsComponent,
     ManagerolesComponent,
-    UserprofileComponent
+    UserprofileComponent,
+    AccidentdetailsComponent,
+    AccidenteditdialogComponent,
+    DeletedialogComponent
   ],
   imports: [
+    MatDialogModule,
+    MatIconModule,
+    FormsModule, 
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatTableModule,
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [loggedInGuards],
+  providers: [
+    AdminGuard,
+    StaffGuard,
+    OfficerGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
