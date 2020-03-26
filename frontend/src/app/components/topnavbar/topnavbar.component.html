@@ -1,11 +1,11 @@
-<div class="row border-bottom">
+<div class="row border-bottom" *ngIf="user_has_logged">
     <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="minimalize-styl-2 btn btn-primary " (click)="toggleNavigation()"><i class="fa fa-bars"></i> </a>
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <a (click)="logout()">
+                <a (click)="signout()">
                     <i class="fa fa-sign-out"></i> Log out
                 </a>
             </li>

@@ -1,12 +1,19 @@
 import { Injectable } from '@angular/core';
 import { priviledges } from './../../Roles/roles';
 
+import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
+import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
 export class LogService {
 
-  constructor() { }
+
+  constructor(private router: Router) {
+
+  }
 
   logged: boolean = true;
   
@@ -38,5 +45,12 @@ export class LogService {
   getUserType(){
     return this.user_type;
   }
-  
+
+
+  // getTokenSilently$(options?): Observable<string> {
+  //   return this.auth0Client$.pipe(
+  //     concatMap((client: Auth0Client) => from(client.getTokenSilently(options)))
+  //   );
+  // }
+
 }

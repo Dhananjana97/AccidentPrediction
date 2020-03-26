@@ -9,7 +9,7 @@ import { LogService } from 'src/app/services/logService/log.service';
 })
 export class NavigationComponent implements OnInit {
   @Input() loginInfo;
-  constructor( private router: Router, private log_service: LogService) { }
+  constructor( private router: Router, private log: LogService) { }
 
   ngOnInit() { }
   activeRoute(routename: string): boolean{

@@ -1,1 +1,7 @@
-<p>login works!</p>
+<!-- <!-- <p>login works!</p> -->
+<!-- <button> Login </button> -->-->
+
+<div class="authClass">
+    <ngx-auth-firebaseui [providers]="[]" [guestEnabled]="false" (onSuccess)="printUser($event)" goBackURL="login">
+    </ngx-auth-firebaseui>
+</div>

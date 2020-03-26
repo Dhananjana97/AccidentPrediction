@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { LogService } from './services/logService/log.service';
 import { Router } from '@angular/router';
 
@@ -12,5 +12,4 @@ export class AppComponent {
   title = 'AccidentAnalyzer';
 
   user_has_logged = this.log.getlog();
-
 }
