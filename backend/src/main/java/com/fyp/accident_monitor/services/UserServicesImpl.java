@@ -2,11 +2,13 @@ package com.fyp.accident_monitor.services;
 
 import com.fyp.accident_monitor.Dao.UserDao;
 import com.fyp.accident_monitor.Dao.UserJdbcDao;
+import com.fyp.accident_monitor.Entities.RoleAssignment;
 import com.fyp.accident_monitor.Entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -25,8 +27,8 @@ public class UserServicesImpl implements UserServices {
 
     @Transactional
     @Override
-    public User getUserDetailsById(Integer userid)throws NoSuchElementException{
-        return userDao.findById(userid).orElseThrow(()->new NoSuchElementException("NO object found"));
+    public User getUserDetailsById(Integer userid) throws NoSuchElementException {
+        return userDao.findById(userid).orElseThrow(() -> new NoSuchElementException("NO object found"));
     }
 
 
@@ -34,8 +36,6 @@ public class UserServicesImpl implements UserServices {
 //    public User getUserDetailsById(Integer userid)throws NoSuchElementException{
 //        return userJdbcDao.getUserById(userid);
 //    }
-
-
 
 
     @Transactional
@@ -48,7 +48,25 @@ public class UserServicesImpl implements UserServices {
     @Override
     public User saveUserRegRequest(User user) {
         user.setStatus(0);
-        User savedUser=userDao.save(user);
+        User savedUser = userDao.save(user);
         return savedUser;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public int assignRolesToUser(RoleAssignment roleAssignment) throws SQLException {
+        int a = 1;
+        roleAssignment.getAssigningRoleName().forEach(role -> {
+            try {
+                userJdbcDao.saveRoleAssignment(roleAssignment.getRoleAssigningUserId(), role);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+        return a;
+
     }
 }

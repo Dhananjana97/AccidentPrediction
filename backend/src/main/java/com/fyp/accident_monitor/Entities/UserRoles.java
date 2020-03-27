@@ -1,14 +1,16 @@
 package com.fyp.accident_monitor.Entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Asus on 3/20/2020.
  */
 @Entity
 @Table(name="user_role")
-public class UserRoles {
+public class UserRoles implements Serializable {
 
+    private static final long serialVersionUID = -776926532133647447L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer user_role_id;

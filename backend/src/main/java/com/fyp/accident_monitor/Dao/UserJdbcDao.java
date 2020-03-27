@@ -1,5 +1,6 @@
 package com.fyp.accident_monitor.Dao;
 
+import com.fyp.accident_monitor.Entities.RoleAssignment;
 import com.fyp.accident_monitor.Entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -7,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.management.relation.Role;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -36,6 +38,21 @@ public class UserJdbcDao {
             }
         });
         return user;
+
+    }
+
+    public int saveRoleAssignment(Integer userid,String role) throws SQLException{
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("userid",userid.toString());
+        parameters.put("roleName",role);
+
+        String sql="insert into user_role(user_id,role_id)\n" +
+                "select user_id,role_id from\n" +
+                "users,roles where users.user_id=:userid and roles.role_name=:roleName";
+        int assignmentstatus=namedParameterJdbcTemplate.update(sql,parameters);
+
+        return assignmentstatus;
+
 
     }
 

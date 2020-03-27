@@ -1,8 +1,10 @@
 package com.fyp.accident_monitor.services;
 
+import com.fyp.accident_monitor.Entities.RoleAssignment;
 import com.fyp.accident_monitor.Entities.User;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -19,6 +21,8 @@ public interface UserServices {
     User getUserDetailsByName(String name) throws NoSuchElementException;
 
     User saveUserRegRequest(User user);
+
+    int assignRolesToUser(RoleAssignment roleAssignment)throws SQLException;
 
 }
 

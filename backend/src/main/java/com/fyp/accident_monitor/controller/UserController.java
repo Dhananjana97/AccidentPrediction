@@ -1,12 +1,22 @@
 package com.fyp.accident_monitor.controller;
 
+import com.fyp.accident_monitor.Entities.RoleAssignment;
+
+import java.util.Base64;
+
 import com.fyp.accident_monitor.Entities.User;
 import com.fyp.accident_monitor.services.UserServices;
+import jdk.nashorn.internal.ir.RuntimeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+import javax.annotation.security.RolesAllowed;
+import java.net.Authenticator;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -19,9 +29,14 @@ public class UserController {
     @Autowired
     private UserServices userServices;
 
+    //    @PreAuthorize("hasAnyRole('Admin')")
     @RequestMapping(value = "/getuserbyid/{userid}", method = RequestMethod.GET)
     public User getUserDetailsById(@PathVariable(name = "userid") Integer userid) throws NoSuchElementException {
-        return userServices.getUserDetailsById(userid);
+        User retUser= userServices.getUserDetailsById(userid);
+
+        System.out.println("ddddddd");
+        return retUser;
+
 
     }
 
@@ -31,8 +46,15 @@ public class UserController {
 
     }
 
-    @PostMapping(path = "/usersignup",consumes = "application/json",produces = "application/json")
-    public User requestUserSignup(@RequestBody User user){
-        return  userServices.saveUserRegRequest(user);
+    @PostMapping(path = "/usersignup", consumes = "application/json", produces = "application/json")
+    public User requestUserSignup(@RequestBody User user) {
+        return userServices.saveUserRegRequest(user);
     }
+
+    @PostMapping(path = "/roleassign", consumes = "application/json", produces = "application/json")
+    public int assignRoles(@RequestBody RoleAssignment roleAssignment) throws SQLException {
+        return userServices.assignRolesToUser(roleAssignment);
+    }
+
+
 }

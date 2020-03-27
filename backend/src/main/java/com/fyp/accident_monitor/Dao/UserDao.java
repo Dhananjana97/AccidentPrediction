@@ -12,7 +12,6 @@ import java.util.Optional;
  */
 public interface UserDao extends JpaRepository<User, Integer> {
 
-    @Query("SELECT u from User u where u.name=:name")
-    User findUserByName(@Param("name") String name);
+    Optional<User> findByName(String username);
 
 }
