@@ -9,15 +9,15 @@ import java.util.List;
 public class RoleAssignment implements Serializable {
 
     private static final long serialVersionUID = -2811008687103779769L;
-    private Integer roleAssigningUserId;
+    private String roleAssigningUserId;
 
     private List<String> assigningRoleName;
 
-    public Integer getRoleAssigningUserId() {
+    public String getRoleAssigningUserId() {
         return roleAssigningUserId;
     }
 
-    public void setRoleAssigningUserId(Integer roleAssigningUserId) {
+    public void setRoleAssigningUserId(String roleAssigningUserId) {
         this.roleAssigningUserId = roleAssigningUserId;
     }
 

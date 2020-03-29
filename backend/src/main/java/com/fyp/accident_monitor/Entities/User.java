@@ -13,43 +13,42 @@ import java.util.Set;
 public class User implements Serializable {
 
 
-    private static final long serialVersionUID = 7071708023328006285L;
+    private static final long serialVersionUID = -1109266097922296763L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer user_id;
+    @Column(name = "user_id")
+    private String userId;
+    @Column(name = "name")
     private String name;
+    @Column(name = "email_address")
+    private String emailAddress;
     @Enumerated(EnumType.STRING)
+    @Column(name = "rank")
     private Rank rank;
+    @Column(name = "status")
     private int status;
 
     @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="user_role", joinColumns={@JoinColumn(name="user_id")}
-            , inverseJoinColumns={@JoinColumn(name="role_id")})
+    @JoinTable(name="user_role", joinColumns={@JoinColumn(name="userId")}
+            , inverseJoinColumns={@JoinColumn(name="roleId")})
     private Set<Role> roles;
 
-
-
-
-
-
-
     public User(User user) {
-        this.user_id = user.user_id;
+        this.userId = user.userId;
         this.name = user.name;
+        this.emailAddress =user.emailAddress;
+        this.rank=user.rank;
     }
 
     public User(){
         super();
     }
 
-
-
-    public Integer getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -76,12 +75,19 @@ public class User implements Serializable {
         this.status = status;
     }
 
-
     public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 }

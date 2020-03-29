@@ -10,8 +10,9 @@ import java.util.Optional;
 /**
  * Created by Asus on 3/20/2020.
  */
-public interface UserDao extends JpaRepository<User, Integer> {
+public interface UserDao extends JpaRepository<User, String> {
 
     Optional<User> findByName(String username);
+
 
 }

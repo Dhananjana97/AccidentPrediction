@@ -1,18 +1,18 @@
 package com.fyp.accident_monitor.Dao;
 
-import com.fyp.accident_monitor.Entities.RoleAssignment;
+import com.fyp.accident_monitor.Entities.Rank;
 import com.fyp.accident_monitor.Entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.management.relation.Role;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Asus on 3/21/2020.
@@ -24,14 +24,14 @@ public class UserJdbcDao {
     @Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public User getUserByName(String name){
+    public User getUserByName(String name) {
         Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("name", "%"+name+"%");
-         User user=namedParameterJdbcTemplate.queryForObject("Select * From users where name like :name ", parameters,new RowMapper<User>() {
+        parameters.put("name", "%" + name + "%");
+        User user = namedParameterJdbcTemplate.queryForObject("Select * From users where name like :name ", parameters, new RowMapper<User>() {
             @Override
             public User mapRow(ResultSet resultSet, int i) throws SQLException {
-                User user=new User();
-                user.setUser_id(resultSet.getInt("user_id"));
+                User user = new User();
+                user.setUserId(resultSet.getString("user_id"));
                 user.setName(resultSet.getString("name"));
 
                 return user;
@@ -41,17 +41,51 @@ public class UserJdbcDao {
 
     }
 
-    public int saveRoleAssignment(Integer userid,String role) throws SQLException{
-        Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("userid",userid.toString());
-        parameters.put("roleName",role);
 
-        String sql="insert into user_role(user_id,role_id)\n" +
+
+    public int saveRoleAssignment(String userid, String role) throws SQLException {
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("userid", userid);
+        parameters.put("roleName", role);
+
+        String sql = "insert into user_role(user_id,role_id)\n" +
                 "select user_id,role_id from\n" +
                 "users,roles where users.user_id=:userid and roles.role_name=:roleName";
-        int assignmentstatus=namedParameterJdbcTemplate.update(sql,parameters);
+        int assignmentstatus = namedParameterJdbcTemplate.update(sql, parameters);
 
         return assignmentstatus;
+    }
+
+    public List<String> getRolesofUser(String userid) {
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("userid", userid);
+
+        String sql = "SELECT * FROM user_role inner join roles on user_role.role_id= roles.role_id where user_id=:userid";
+
+        List<String> roleList = namedParameterJdbcTemplate.query(sql, parameters, new ResultSetExtractor<List<String>>() {
+            @Override
+            public List<String> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+                List<String> roleList = new ArrayList<>();
+
+                while (resultSet.next()) {
+                    roleList.add(resultSet.getString("role_name"));
+                }
+                return roleList;
+            }
+        });
+
+        return roleList;
+    }
+
+    public int approveUser(String userid) throws SQLException {
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("userid", userid);
+
+        String sql = "UPDATE users SET status=1 WHERE user_id =:userid ";
+
+        int approval = namedParameterJdbcTemplate.update(sql, parameters);
+
+        return approval;
 
 
     }

@@ -16,13 +16,17 @@ import java.util.Optional;
 public interface UserServices {
 
 
-    User getUserDetailsById(Integer userid) throws NoSuchElementException;
+    User getUserDetailsById(String userid) throws NoSuchElementException;
 
     User getUserDetailsByName(String name) throws NoSuchElementException;
 
     User saveUserRegRequest(User user);
 
     int assignRolesToUser(RoleAssignment roleAssignment)throws SQLException;
+
+    int approveUser(String userid) throws SQLException;
+
+    void notifyUser(String emailAddress);
 
 }
 

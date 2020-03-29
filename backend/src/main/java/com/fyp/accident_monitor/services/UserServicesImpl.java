@@ -2,6 +2,7 @@ package com.fyp.accident_monitor.services;
 
 import com.fyp.accident_monitor.Dao.UserDao;
 import com.fyp.accident_monitor.Dao.UserJdbcDao;
+import com.fyp.accident_monitor.Entities.Response;
 import com.fyp.accident_monitor.Entities.RoleAssignment;
 import com.fyp.accident_monitor.Entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class UserServicesImpl implements UserServices {
 
     @Transactional
     @Override
-    public User getUserDetailsById(Integer userid) throws NoSuchElementException {
+    public User getUserDetailsById(String userid) throws NoSuchElementException {
         return userDao.findById(userid).orElseThrow(() -> new NoSuchElementException("NO object found"));
     }
 
@@ -69,4 +70,21 @@ public class UserServicesImpl implements UserServices {
         return a;
 
     }
+
+    @Override
+    public int approveUser(String userid) throws SQLException {
+
+        int success=userJdbcDao.approveUser(userid);
+
+        return success;
+    }
+
+    @Override
+    public void notifyUser(String emailAddress) {
+
+
+
+    }
+
+
 }

@@ -14,27 +14,27 @@ public class Priviledges implements Serializable {
     private static final long serialVersionUID = 1684283270344558715L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer priv_id;
+    private Integer privId;
 
-    private Integer role_id;
+    private Integer roleId;
 
 
     private String description;
 
-    public Integer getPriv_id() {
-        return priv_id;
+    public Integer getPrivId() {
+        return privId;
     }
 
-    public void setPriv_id(Integer priv_id) {
-        this.priv_id = priv_id;
+    public void setPrivId(Integer privId) {
+        this.privId = privId;
     }
 
-    public Integer getRole_id() {
-        return role_id;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRole_id(Integer role_id) {
-        this.role_id = role_id;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public String getDescription() {

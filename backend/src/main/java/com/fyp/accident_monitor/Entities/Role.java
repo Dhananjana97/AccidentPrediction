@@ -2,7 +2,6 @@ package com.fyp.accident_monitor.Entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * Created by Asus on 3/20/2020.
@@ -16,7 +15,7 @@ public class Role implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer role_id;
 
-    private String role_name;
+    private String roleName;
 
 //    @ManyToMany(mappedBy="roles")
 //    private Set<User> users;
@@ -25,20 +24,24 @@ public class Role implements Serializable {
 
 
 
-    public Integer getRole_id() {
+    public Integer getRoleId() {
         return role_id;
     }
 
-    public void setRole_id(Integer role_id) {
+    public void setRoleId(Integer role_id) {
         this.role_id = role_id;
     }
 
-    public String getRole_name() {
-        return role_name;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole_name(String role_name) {
-        this.role_name = role_name;
+    public void setRoleName(String role_name) {
+        this.roleName = role_name;
+    }
+
+    public Role(){
+        super();
     }
 
 //    public Set<User> getUsers() {

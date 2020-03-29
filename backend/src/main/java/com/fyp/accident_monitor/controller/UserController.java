@@ -1,23 +1,17 @@
 package com.fyp.accident_monitor.controller;
 
-import com.fyp.accident_monitor.Entities.RoleAssignment;
+import com.fyp.accident_monitor.Entities.*;
 
-import java.util.Base64;
+import java.util.*;
 
-import com.fyp.accident_monitor.Entities.User;
+import com.fyp.accident_monitor.services.SecurityServices;
 import com.fyp.accident_monitor.services.UserServices;
-import jdk.nashorn.internal.ir.RuntimeNode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.annotation.security.RolesAllowed;
-import java.net.Authenticator;
+import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.NoSuchElementException;
 
 /**
  * Created by Asus on 3/20/2020.
@@ -29,14 +23,21 @@ public class UserController {
     @Autowired
     private UserServices userServices;
 
-    //    @PreAuthorize("hasAnyRole('Admin')")
+    @Autowired
+    private SecurityServices securityServices;
+
+
     @RequestMapping(value = "/getuserbyid/{userid}", method = RequestMethod.GET)
-    public User getUserDetailsById(@PathVariable(name = "userid") Integer userid) throws NoSuchElementException {
-        User retUser= userServices.getUserDetailsById(userid);
+    public User getUserDetailsById(@PathVariable(name = "userid") String userid, HttpServletRequest request) throws NoSuchElementException, Exception {
 
-        System.out.println("ddddddd");
+        User retUser = null;
+
+        String[] authorizedRoleNames = new String[]{"Admin"};
+        if (securityServices.checkAuthorization(request, authorizedRoleNames)) {
+            retUser = userServices.getUserDetailsById(userid);
+        }
+
         return retUser;
-
 
     }
 
@@ -47,13 +48,44 @@ public class UserController {
     }
 
     @PostMapping(path = "/usersignup", consumes = "application/json", produces = "application/json")
-    public User requestUserSignup(@RequestBody User user) {
+    public User requestUserSignup(@RequestBody User user, HttpServletRequest request) {
+        JwtPayload payload = securityServices.getJwtPayload(request);
+        user.setEmailAddress(payload.getEmail());
+       // user.setUserId(payload.getUserId());
         return userServices.saveUserRegRequest(user);
     }
 
     @PostMapping(path = "/roleassign", consumes = "application/json", produces = "application/json")
-    public int assignRoles(@RequestBody RoleAssignment roleAssignment) throws SQLException {
-        return userServices.assignRolesToUser(roleAssignment);
+    public @ResponseBody Response assignRoles(@RequestBody RoleAssignment roleAssignment, HttpServletRequest request) throws SQLException, Exception {
+
+        String[] authorizedRoleNames = new String[]{"Guest"};
+        Response response = new Response();
+        if (securityServices.checkAuthorization(request, authorizedRoleNames)) {
+            int success = userServices.assignRolesToUser(roleAssignment);
+            if (success == 1) {
+                response.setMessage("Roles Assigned Successfully");
+            } else {
+                response.setMessage("Roles Assignment Failed");
+            }
+        }
+        return response;
+    }
+
+
+    @RequestMapping(path = "/approveUser", consumes = "application/json", produces = "application/json", method = RequestMethod.PUT)
+    public @ResponseBody Response approveUser(@RequestBody User user, HttpServletRequest request) throws Exception, SQLException {
+
+        String[] authorizedRoleNames = new String[]{"Admin"};
+        Response response = new Response();
+        if (securityServices.checkAuthorization(request, authorizedRoleNames)) {
+            int success = userServices.approveUser(user.getUserId());
+            if (success == 1) {
+                response.setMessage("User Approved Successfully");
+            } else {
+                response.setMessage("Approval Failed");
+            }
+        }
+        return response;
     }
 
 
