@@ -6,6 +6,7 @@ import com.fyp.accident_monitor.Entities.Response;
 import com.fyp.accident_monitor.Entities.RoleAssignment;
 import com.fyp.accident_monitor.Entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,18 +26,15 @@ public class UserServicesImpl implements UserServices {
     @Autowired
     private UserJdbcDao userJdbcDao;
 
+    @Autowired
+    private NotificationService notificationService;
+
 
     @Transactional
     @Override
     public User getUserDetailsById(String userid) throws NoSuchElementException {
-        return userDao.findById(userid).orElseThrow(() -> new NoSuchElementException("NO object found"));
+        return userDao.findById(userid).orElseThrow(() -> new NoSuchElementException("No user found"));
     }
-
-
-//    @Override
-//    public User getUserDetailsById(Integer userid)throws NoSuchElementException{
-//        return userJdbcDao.getUserById(userid);
-//    }
 
 
     @Transactional
@@ -47,7 +45,7 @@ public class UserServicesImpl implements UserServices {
 
     @Transactional
     @Override
-    public User saveUserRegRequest(User user) {
+    public User saveUserRegRequest(User user) throws SQLException {
         user.setStatus(0);
         User savedUser = userDao.save(user);
         return savedUser;
@@ -56,33 +54,53 @@ public class UserServicesImpl implements UserServices {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public int assignRolesToUser(RoleAssignment roleAssignment) throws SQLException {
-        int a = 1;
-        roleAssignment.getAssigningRoleName().forEach(role -> {
-            try {
-                userJdbcDao.saveRoleAssignment(roleAssignment.getRoleAssigningUserId(), role);
-
-            } catch (SQLException e) {
-                e.printStackTrace();
+        int success = 0;
+        for (String roleName : roleAssignment.getAssigningRoleName()){
+           success= userJdbcDao.saveRoleAssignment(roleAssignment.getRoleAssigningUserId(), roleName);
+            if(success==0){
+                throw new SQLException("Role Assignment Failed");
             }
 
-        });
-
-        return a;
-
+        }
+        return success;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public int approveUser(String userid) throws SQLException {
+    public int removeRolesFromUser(RoleAssignment roleAssignment) throws SQLException {
+        int success = 0;
+        for (String roleName : roleAssignment.getRemovingRoles()){
+            success= userJdbcDao.saveRoleRemoval(roleAssignment.getRoleAssigningUserId(), roleName);
+            if(success==0){
+                throw new SQLException("Role Removal Failed");
+            }
+        }
+        return success;
+    }
 
-        int success=userJdbcDao.approveUser(userid);
+
+
+    @Transactional
+    @Override
+    public int approveUserNNotify(User fuser) throws SQLException, MailException {
+
+        int success = userJdbcDao.approveUser(fuser.getUserId());
+        if (success == 1) {
+            User retUser=userDao.findById(fuser.getUserId()).orElse(null);
+            if(retUser.getEmailAddress()!=null){
+                notificationService.sendNotification(retUser);
+            }
+
+        }
 
         return success;
     }
 
+    @Transactional
     @Override
-    public void notifyUser(String emailAddress) {
-
-
+    public User updateUser(User user) {
+        User updatedUser = userDao.save(user);
+        return updatedUser;
 
     }
 

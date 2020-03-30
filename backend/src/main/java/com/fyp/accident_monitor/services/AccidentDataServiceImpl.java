@@ -41,7 +41,7 @@ public class AccidentDataServiceImpl implements AccidentDataService{
 
 	@Override
 	public AccidentData getAccidentById(Integer id) {
-		return accidentDataDao.findById(id).orElseThrow(()->new NoSuchElementException("NO object found"));
+		return accidentDataDao.findById(id).orElseThrow(()->new NoSuchElementException("No accident record found"));
 	}
 	
 	

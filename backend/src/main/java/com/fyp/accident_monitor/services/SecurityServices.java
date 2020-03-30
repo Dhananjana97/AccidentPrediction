@@ -34,30 +34,28 @@ public class SecurityServices {
         return jwtPayload;
     }
 
-    public boolean checkAuthorization(HttpServletRequest request, String[] requiredroles) throws Exception {
+    public boolean checkAuthorization(HttpServletRequest request, String requiredPriv) throws Exception {
 
         boolean isAthorized = false;
 
         JwtPayload payload = getJwtPayload(request);
-        //List<String> haveRoles = getRolesofUser(payload.getUserId());
-        List<String> haveRoles = getRolesofUser("6");
+        List<String> havePrives = getPrivesofUser(payload.getUser_id());
 
-        for (String role : requiredroles) {
-            if (haveRoles.contains(role)) {
-                isAthorized = true;
-            } else {
-                throw new Exception("User have no Authorization to use this service ");
-            }
-
+        if (havePrives.contains(requiredPriv)) {
+            isAthorized = true;
+        } else {
+            isAthorized = false;
+            throw new Exception("User have no Authorization to use this service ");
         }
+
         return isAthorized;
 
     }
 
     ;
 
-    private List<String> getRolesofUser(String userid) {
-        List<String> roleList = userJdbcDao.getRolesofUser(userid);
+    private List<String> getPrivesofUser(String userid) {
+        List<String> roleList = userJdbcDao.getPrivesofUser(userid);
         return roleList;
 
 

@@ -9,7 +9,7 @@ public class JwtPayload {
     private String iss;
     private String aud;
     private long auth_time;
-    private String userId;
+    private String user_id;
     private String sub;
     private long iat;
     private long exp;
@@ -18,26 +18,6 @@ public class JwtPayload {
 
 
 
-//    {
-//        "name": "asansandeepa@gmail.com",
-//            "iss": "https://securetoken.google.com/accidentpred",
-//            "aud": "accidentpred",
-//            "auth_time": 1585300599,
-//            "userId": "5f05mbGh3Fc95kJlrfeLBLd3ZPq1",
-//            "sub": "5f05mbGh3Fc95kJlrfeLBLd3ZPq1",
-//            "iat": 1585300599,
-//            "exp": 1585304199,
-//            "email": "asansandeepa@gmail.com",
-//            "email_verified": true,
-//            "firebase": {
-//        "identities": {
-//            "email": [
-//            "asansandeepa@gmail.com"
-//      ]
-//        },
-//        "sign_in_provider": "password"
-//    }
-//    }
 
     public String getName() {
         return name;
@@ -71,12 +51,12 @@ public class JwtPayload {
         this.auth_time = auth_time;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public String getSub() {

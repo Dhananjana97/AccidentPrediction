@@ -20,13 +20,15 @@ public interface UserServices {
 
     User getUserDetailsByName(String name) throws NoSuchElementException;
 
-    User saveUserRegRequest(User user);
+    User saveUserRegRequest(User user) throws SQLException;
 
     int assignRolesToUser(RoleAssignment roleAssignment)throws SQLException;
 
-    int approveUser(String userid) throws SQLException;
+    int removeRolesFromUser(RoleAssignment roleAssignment)throws SQLException;
 
-    void notifyUser(String emailAddress);
+    int approveUserNNotify(User user) throws SQLException;
+
+    User updateUser(User user);
 
 }
 
