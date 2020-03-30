@@ -95,4 +95,5 @@ export class AccidentdetailsComponent implements OnInit {
     this.rest.testApi().subscribe((data) =>
       console.log(data));
   }
+  
 }

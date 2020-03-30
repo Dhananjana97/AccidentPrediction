@@ -27,7 +27,7 @@
                             "src/custom-theme.scss",
                             "src/assets/styles/bootstrap.min.css",
                             "src/assets/styles/font-awesome.min.css",
-                            "src/assets/styles/style.css"
+                            "src/assets/styles/style.css",
                         ],
                         "scripts": [
                             "node_modules/jquery/dist/jquery.min.js"
@@ -85,16 +85,12 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
-                        "assets": [{
-                                "glob": "**/*",
-                                "input": "node_modules/ngx-auth-firebaseui/assets/",
-                                "output": "./assets/"
-                            },
+                        "assets": [
                             "src/favicon.ico",
                             "src/assets"
                         ],
                         "styles": [
-                            "src/styles.css"
+                            "src/styles.css",
                         ],
                         "scripts": []
                     }

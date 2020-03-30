@@ -1,0 +1,13 @@
+<div class="form-group row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Current role</label>
+    <div class="col-sm-10">
+        <label>{{data.current_role}}</label>
+    </div>
+</div>
+
+<select class="form-control" [(ngModel)]="role_selected">
+    <option *ngFor="let role of data.other_roles"> {{role}} </option>
+</select>
+<div mat-dialog-action class="col-sm-12">
+    <button [mat-dialog-close]="role_selected" mat-raised-button>Edit</button>
+</div>

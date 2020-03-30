@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SysdataService } from 'src/app/services/syaData/sysdata.service';
 import { RestService } from 'src/app/services/rest/rest.service';
+import { LogService } from 'src/app/services/logService/log.service';
+import { SystemRoles } from './../../systemData/systenRoles';
 
 @Component({
   selector: 'manageroles',
@@ -10,33 +11,29 @@ import { RestService } from 'src/app/services/rest/rest.service';
 export class ManagerolesComponent implements OnInit {
 
   constructor(
-    private sysDataService: SysdataService,
-    private restService: RestService
+    private restService: RestService,
+    private log : LogService
   ) { }
 
   ngOnInit(): void {
   }
 
-  systemRoles: string[] = this.sysDataService.getSystemRoles();
+  systemRoles: string[] = SystemRoles;
 
   userData = this.getUserData();
 
   getUserData() {
+    console.log(this.systemRoles);
     let temp_user_data = this.restService.getUserData();
     for (let user of temp_user_data) {
-      user["other_roles"] = this.getOtherRoles(user["current_role"], this.systemRoles);
+      user["other_roles"] = this.getOtherRoles(user["current_role"],this.systemRoles);
     }
     return temp_user_data;
   }
 
-  getOtherRoles(role: string, systemRoles: string[]) {
-    let temp_system_roles = []
-    for (let x  of systemRoles){
-      if (x!=role){
-        temp_system_roles.push(x);
-      }
-    }
-    return temp_system_roles;
+  getOtherRoles(role: string,systemRoles: string[]) {
+    console.log(role+"====."+systemRoles)
+    return this.log.getOtherRoles(role,systemRoles);
   }
 
   showProfile(userId) {

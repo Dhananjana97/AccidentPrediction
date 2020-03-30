@@ -1,1 +1,30 @@
-<p>signup works!</p>
+<div class="authClass">
+
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput required placeholder="abc@abc.abc" name="first" #email value="">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Name</mat-label>
+            <input minlength="4" matInput required placeholder="Ex. Pizza" name="ficrst" #name value="">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Rank</mat-label>
+            <select matNativeControl required #rank value="">
+                <option *ngFor="let rank of ranks"> {{rank}} </option>
+            </select>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Password</mat-label>
+            <input matInput required placeholder="Ex. Pizza" name="ficrst" #password value="">
+        </mat-form-field>
+
+        <button type="submit" (click)="signup(email.value, password.value,name.value,rank.value)">Sign Up</button>
+        <button routerLink="./../login">Log In</button>
+    </form>
+
+</div>

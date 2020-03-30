@@ -1,7 +1,16 @@
-<!-- <!-- <p>login works!</p> -->
-<!-- <button> Login </button> -->-->
-
 <div class="authClass">
-    <ngx-auth-firebaseui [providers]="[]" [guestEnabled]="false" (onSuccess)="printUser($event)" goBackURL="login">
-    </ngx-auth-firebaseui>
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="abc@abc.com" name="first" #email>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>password</mat-label>
+            <input matInput placeholder="********" name="ficrst" #password>
+        </mat-form-field>
+
+        <button (click)="login(email.value, password.value)">Log In</button>
+        <button *ngIf="!verified" (click)="sendVerification(email.value, password.value)">Send Verification</button>
+        <button routerLink="./../register">Register</button>
+    </form>
 </div>

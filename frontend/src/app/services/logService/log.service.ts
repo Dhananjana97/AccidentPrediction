@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { priviledges } from './../../Roles/roles';
-
-import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
-import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
+import { priviledges } from '../../systemData/priviledges';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -15,9 +12,9 @@ export class LogService {
 
   }
 
-  logged: boolean = true;
+  logged: boolean = false;
   
-  user_type : string = "Staff";
+  user_type : string = "Admin";
 
   priviledges_list = priviledges;
 
@@ -45,7 +42,16 @@ export class LogService {
   getUserType(){
     return this.user_type;
   }
-
+  
+  getOtherRoles(role: string, systemRoles: string[]) {
+    let temp_system_roles = []
+    for (let x  of systemRoles){
+      if (x!=role){
+        temp_system_roles.push(x);
+      }
+    }
+    return temp_system_roles;
+  }
 
   // getTokenSilently$(options?): Observable<string> {
   //   return this.auth0Client$.pipe(

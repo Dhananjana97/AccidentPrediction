@@ -1,0 +1,1 @@
+export const SystemRoles = ["Admin", "Staff", "Officer"];
