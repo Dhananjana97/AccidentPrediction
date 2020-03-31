@@ -42,7 +42,6 @@ public class UserJdbcDao {
     }
 
 
-
     public int saveRoleAssignment(String userid, String role) throws SQLException {
         Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("userid", userid);
@@ -50,31 +49,50 @@ public class UserJdbcDao {
 
         String sql = "insert into user_role(user_id,role_id)\n" +
                 "select user_id,role_id from\n" +
-                "users,roles where users.user_id=:userid and roles.role_name=:roleName";
+                "users,roles where users.user_id=:userid and roles.role_name=:roleName and users.status=1";
         int assignmentstatus = namedParameterJdbcTemplate.update(sql, parameters);
 
         return assignmentstatus;
     }
 
-    public List<String> getRolesofUser(String userid) {
+    public int saveRoleRemoval(String userid, String role) throws SQLException {
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("userid", userid);
+        parameters.put("roleName", role);
+
+        int removeStatus=0;
+        String sql = "Delete user_role from users\n" +
+                "  inner join user_role on users.user_id=user_role.user_id\n" +
+                "  inner join roles on user_role.role_id=roles.role_id\n" +
+                "  where users.user_id=:userid and roles.role_name=:roleName";
+
+        removeStatus = namedParameterJdbcTemplate.update(sql, parameters);
+
+        return removeStatus;
+    }
+
+    public List<String> getPrivesofUser(String userid) {
         Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("userid", userid);
 
-        String sql = "SELECT * FROM user_role inner join roles on user_role.role_id= roles.role_id where user_id=:userid";
+        String sql = "Select distinct code from users\n" +
+                "  inner join user_role on users.user_id=user_role.user_id\n" +
+                "  inner join roles on user_role.role_id=roles.role_id\n" +
+                "  inner join previledges on user_role.role_id=previledges.role_id\n" +
+                "  where users.user_id=:userid";
 
-        List<String> roleList = namedParameterJdbcTemplate.query(sql, parameters, new ResultSetExtractor<List<String>>() {
+        List<String> privList = namedParameterJdbcTemplate.query(sql, parameters, new ResultSetExtractor<List<String>>() {
             @Override
             public List<String> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-                List<String> roleList = new ArrayList<>();
-
+                List<String> privList = new ArrayList<>();
                 while (resultSet.next()) {
-                    roleList.add(resultSet.getString("role_name"));
+                    privList.add(resultSet.getString("code"));
                 }
-                return roleList;
+                return privList;
             }
         });
 
-        return roleList;
+        return privList;
     }
 
     public int approveUser(String userid) throws SQLException {

@@ -13,6 +13,8 @@ public class RoleAssignment implements Serializable {
 
     private List<String> assigningRoleName;
 
+    private List<String> removingRoles;
+
     public String getRoleAssigningUserId() {
         return roleAssigningUserId;
     }
@@ -27,5 +29,13 @@ public class RoleAssignment implements Serializable {
 
     public void setAssigningRoleName(List<String> assigningRoleName) {
         this.assigningRoleName = assigningRoleName;
+    }
+
+    public List<String> getRemovingRoles() {
+        return removingRoles;
+    }
+
+    public void setRemovingRoles(List<String> removingRoles) {
+        this.removingRoles = removingRoles;
     }
 }
