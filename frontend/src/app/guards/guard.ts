@@ -44,7 +44,7 @@ export class AuthGuard implements CanActivate {
     constructor(private logService:LogService,  public router: Router){}
 
     canActivate() {
-        if (this.logService.logged == true){
+        if (this.logService.getLog() == true){
             return true;
         }
         this.router.navigate(["login"]);
@@ -57,7 +57,7 @@ export class UnAuthGuard implements CanActivate {
     constructor(private logService:LogService,  public router: Router){}
 
     canActivate() {
-        if (this.logService.logged == false){
+        if (this.logService.getLog() == false){
             return true;
         }
         this.router.navigate(["home"]);

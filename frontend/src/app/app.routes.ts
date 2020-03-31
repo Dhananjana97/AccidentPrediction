@@ -48,16 +48,11 @@ export const appRoutes = [
             },
             {
                 path: priviledges.Admin[0].url_name,
-                component: RolerequestsComponent,
-                canActivate: [AdminGuard]
-            },
-            {
-                path: priviledges.Admin[1].url_name,
                 component: ManagerolesComponent,
                 canActivate: [AdminGuard]
             },
             {
-                path: priviledges.Admin[2].url_name,
+                path: priviledges.Admin[1].url_name,
                 component: AccidentdetailsComponent,
                 canActivate: [AdminGuard]
             },

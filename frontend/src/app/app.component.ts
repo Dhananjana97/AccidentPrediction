@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private log:LogService, private router:Router){}
+  constructor(private logService:LogService, private router:Router){}
   title = 'AccidentAnalyzer';
 
-  user_has_logged = this.log.getlog();
+  user_has_logged = this.logService.getLog();
 }

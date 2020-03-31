@@ -6,14 +6,15 @@
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
                           <span class="block m-t-xs">
-                          <strong class="font-bold">{{loginInfo.first_name}} {{loginInfo.last_name}}</strong>
+                          <strong class="font-bold">{{loginInfo.name}}</strong><br>
+                          <strong class="font-bold">{{loginInfo.user_type}}</strong>
                       </span>
-                        <span class="text-muted text-xs block">{{loginInfo.title}}</span>
+                        <span class="text-muted text-xs block">{{loginInfo.rank}}</span>
                         </span>
                     </a>
                 </div>
                 <div class="logo-element">
-                    SWWCC
+                    APS
                 </div>
             </li>
             <li [ngClass]="{active: activeRoute('dashboard')}">

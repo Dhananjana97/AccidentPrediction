@@ -11,52 +11,62 @@ export class LogService {
   constructor(private router: Router) {
 
   }
+  private logged: boolean = false;
+  private priviledges_list = priviledges;
+  private loginInfo = {};
 
-  logged: boolean = false;
-  
-  user_type : string = "Admin";
+  public setUserLogStatus(data) {
+    this.loginInfo = {
+      name:data.name,
+      rank:data.rank,
+      user_type: this.getRoleFromResponse(2),
+      priviledges: this.getPriviledgeList(2),
+      uid:data.userId,
+      email:data.emailAddress,
+    }
+    this.logged = true;
+  }
 
-  priviledges_list = priviledges;
+  o = { 
+    "userId": "JKZRNa2I1SU7tUvcqAPET1J0enJ3",
+     "name": "wddwd@uuuuu.uu",
+    "emailAddress": "wddwd@uuuuu.uu",
+     "rank": "Rank1",
+      "status": 0,
+       "roles": null }
 
-  loginInfo = {
-    user_type: this.user_type,
-    priviledges: this.priviledges_list[this.user_type],
-    first_name: 'Andrew',
-    last_name: 'Yang',
-    avatar: 'ay.jpeg',
-    title: 'Senior Developer'
-  };
-
-  setlog(bool) {
+  public setLog(bool) {
     this.logged = bool;
   }
 
-  getlog() {
+  public getLog() {
     return this.logged;
   }
 
-  getLoginInfo(){
+  public getLoginInfo() {
     return this.loginInfo;
   }
 
-  getUserType(){
-    return this.user_type;
+  public getUserType() {
+    return this.loginInfo["user_type"];
   }
-  
-  getOtherRoles(role: string, systemRoles: string[]) {
+
+  public getOtherRoles(role: string, systemRoles: string[]) {
     let temp_system_roles = []
-    for (let x  of systemRoles){
-      if (x!=role){
+    for (let x of systemRoles) {
+      if (x != role) {
         temp_system_roles.push(x);
       }
     }
     return temp_system_roles;
   }
 
-  // getTokenSilently$(options?): Observable<string> {
-  //   return this.auth0Client$.pipe(
-  //     concatMap((client: Auth0Client) => from(client.getTokenSilently(options)))
-  //   );
-  // }
+  private getRoleFromResponse(responseRoleArray){
+    return "Admin";
+  }
+
+  private getPriviledgeList(responsePreviledge){
+    return this.priviledges_list["Admin"];
+  }
 
 }

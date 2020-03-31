@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LogService } from 'src/app/services/logService/log.service';
 
 @Component({
   selector: 'userprofile',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserprofileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private LogService : LogService) { }
 
   ngOnInit(): void {
+  }
+  private user_info = this.LogService.getLoginInfo();
+
+  public getUserInfo(property){
+    return this.user_info[property];
   }
 
 }

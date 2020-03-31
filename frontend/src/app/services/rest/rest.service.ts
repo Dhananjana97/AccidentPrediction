@@ -14,7 +14,33 @@ export class RestService {
     return this.http.get("http://localhost:3001/api/external");
   }
   sendFirstUser(data): Observable<any> {
-    return this.http.post("http://localhost:3001/api/external",data)
+    return this.http.post("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/usersignup", data)
+      .pipe(
+        retry(3), // retry a failed request up to 3 times
+        catchError(this.handleError) // then handle the error
+      );
+  }
+  requestUserDetails() {
+    return this.http.get("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/getmebyid")
+      .pipe(
+        retry(3), // retry a failed request up to 3 times
+        catchError(this.handleError) // then handle the error
+      );
+  }
+  changeUserProfile(name, rank) {
+    console.log("bla bla bla")
+    return this.http.post("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/updateuser", { name: name, rank: rank })
+      .pipe(
+        retry(3), // retry a failed request up to 3 times
+        catchError(this.handleError) // then handle the error
+      );
+  }
+  assignRole(uid, role) {
+    if (role == "Admin") { role = ["Admin", "Staff", "Guest"] }
+    else if (role == "Staff") { role = ["Staff", "Guest"] }
+    else if (role == "Officer") { role = ["Guest"] }
+
+    return this.http.post("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/roleassign", { roleAssigningUserId: uid, assigningRoleName: role })
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
@@ -35,51 +61,35 @@ export class RestService {
 
 
   getUserData() {
-    return [
+    var k =  [
       {
-        id: "123",
-        name: "ashan",
-        current_role: "Staff",
-        description: "i am a agood",
-        registered_date: "123131"
+        "userId": "JKZRNa2I1SU7tUvcqAPET1J0enJ3",
+        "name": "wddwd@uuuuu.uu",
+        "emailAddress": "wddwd@uuuuu.uu",
+        "rank": "Rank1",
+        "status": 0,
+        "roles": [1]
       },
       {
-        id: "234",
-        name: "sandeepa",
-        current_role: "Admin",
-        description: "i am a agood",
-        registered_date: "3232323"
+        "userId": "JKZRNa2I1SU7tUvcqAPET1J0enJ3",
+        "name": "chalieeee@uuuuu.uu",
+        "emailAddress": "sdsd@uuuuu.uu",
+        "rank": "Rank1",
+        "status": 0,
+        "roles": [1,2]
       }
     ]
-  }
-
-
-  getRoleRequests() {
-    return [
-      {
-        id: "123",
-        name: "ashan",
-        current_role: "sci",
-        requested_role: "sergeion",
-        description: "qualifications",
-        requested_date: "aaaaaaaaaaaaaaa"
-      },
-      {
-        id: "1234",
-        name: "ashan",
-        current_role: "sci",
-        requested_role: "sergeion",
-        description: "qualifications",
-        requested_date: "aaaaaaaaaaaaaaa"
-      },
-      {
-        id: "12345",
-        name: "ashan",
-        current_role: "sci",
-        requested_role: "sergeion",
-        description: "qualifications",
-        requested_date: "aaaaaaaaaaaaaaa"
+    for (let l of k){
+      if(l["roles"].length==1){
+        l["user_type"]="Officer";
       }
-    ];
+      else if(l["roles"].length==2){
+        l["user_type"]="Staff";
+      }
+      else if(l["roles"].length==3){
+        l["user_type"]="Admin";
+      }
+    }
+    return k;
   }
 }

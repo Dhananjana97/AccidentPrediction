@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { RestService } from 'src/app/services/rest/rest.service';
+import { Ranks } from './../../systemData/systenRoles';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +15,12 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  ranks = ["Rank1", "Rank2", "Rank3", "Rank4"]
+  
+  private ranks = Ranks;
+
+  getRanks(){
+    return this.ranks;
+  }
 
   signup(email, password, name, rank) {
     if (email == "" || password == "" || name == "" || rank == "") {
@@ -26,15 +32,25 @@ export class SignupComponent implements OnInit {
       .then(() => {
         let data = {
           name: name,
-          rank :rank
+          rank: rank
         };
         this.rest.sendFirstUser(data).subscribe(
           () => {
-            console.log("User is registered successfully!")
-            this.router.navigate(["login"]);
+            console.log("User is registered successfully!");
+            firebase.auth().currentUser.sendEmailVerification()
+              .then(() => {
+                firebase.auth().signOut();
+                window.alert("Dear " + data.name + "! Your request for the accident prediction systm will be accepted by administration soon! And try to verify your email!");
+                this.router.navigate(["login"]);
+              })
+              .catch(function (error) {
+                window.alert("Rgistered successfully! but The verification email cannot be sent! Try again!");
+                firebase.auth().currentUser.delete()
+                this.router.navigate(["login"]);
+              });
           },
           (error) => {
-            window.alert("User is registered, but request for the Accident Analysing System is not completed!");
+            window.alert("Request for the Accident Analysing System is not completed! Register again!");
             console.error("Something went wrong when user registering the backend!  " + error);
             this.router.navigate(["login"]);
           }

@@ -32,7 +32,7 @@
         <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">Vehicle Amount</div>
-                <input [(ngModel)]="data.vehicle_amount" type="text" name="vehicle-amount" class="input" value={{data.vehicle_amount}}>
+                <input [(ngModel)]="data.no_of_vahicles" type="text" name="vehicle-amount" class="input" value={{data.no_of_vahicles}}>
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
         <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">First road class</div>
-                <input [(ngModel)]="data.first_road_class" type="text" name="first-road-class" class="input" value={{data.first_road_class}}>
+                <input [(ngModel)]="data._1st_road_class" type="text" name="first-road-class" class="input" value={{data._1st_road_class}}>
             </div>
         </div>
 
@@ -71,7 +71,7 @@
         <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">Weather condition</div>
-                <input [(ngModel)]="data.weather_condition" type="text" name="weather" class="input" value={{data.weather_condition}}>
+                <input [(ngModel)]="data.weather" type="text" name="weather" class="input" value={{data.weather}}>
             </div>
         </div>
 
@@ -85,8 +85,16 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="inputBox">
+                <div class="inputText"> Casualty </div>
+                <input [(ngModel)]="data.casualty" type="text" name="class" class="input" value={{data.casualty}}>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="inputBox">
                 <div class="inputText"> Casualty class</div>
-                <input [(ngModel)]="data.casualty_class" type="text" name="class" class="input" value={{data.casualty_class}}>
+                <input [(ngModel)]="data._class" type="text" name="class" class="input" value={{data._class}}>
             </div>
         </div>
 
@@ -101,14 +109,14 @@
         <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">Sex</div>
-                <input [(ngModel)]="data.casualty_sex" type="text" name="sex" class="input" value={{data.casualty_sex}}>
+                <input [(ngModel)]="data.sex_of_casualty" type="text" name="sex" class="input" value={{data.sex_of_casualty}}>
             </div>
         </div>
 
         <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">Age</div>
-                <input [(ngModel)]="data.casualty_age" type="text" name="age" class="input" value={{data.casualty_age}}>
+                <input [(ngModel)]="data.age_of_casualty" type="text" name="age" class="input" value={{data.age_of_casualty}}>
             </div>
         </div>
     </div>

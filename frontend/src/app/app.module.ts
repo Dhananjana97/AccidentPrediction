@@ -28,6 +28,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { SendrequestsComponent } from './components/sendrequests/sendrequests.component';
 import { RoleRequestDialogComponent } from './components/dialogs/role-request-dialog/role-request-dialog.component';
 import { MaterialModule } from './customModules/material/material.module';
+import { EditprofileComponent } from './components/dialogs/editprofile/editprofile.component';
+import { AreyousureComponent } from './components/dialogs/areyousure/areyousure.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { MaterialModule } from './customModules/material/material.module';
     DeletedialogComponent,
     SignupComponent,
     SendrequestsComponent,
-    RoleRequestDialogComponent
+    RoleRequestDialogComponent,
+    EditprofileComponent,
+    AreyousureComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

@@ -3,6 +3,8 @@ import { LogService } from 'src/app/services/logService/log.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
+import { RestService } from 'src/app/services/rest/rest.service';
+import { throwError } from 'rxjs';
 
 
 
@@ -14,31 +16,54 @@ import * as firebase from 'firebase';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public log: LogService, public auth: AngularFireAuth, public router: Router, public ngZone: NgZone) { }
+  constructor(public log: LogService, public auth: AngularFireAuth, public router: Router, public ngZone: NgZone, private rest: RestService) { }
 
   ngOnInit(): void {
   }
 
   verified = true;
+  // throw new SyntaxError("Incomplete data: no name");
 
   login(form_email, form_password) {
     firebase.auth().signInWithEmailAndPassword(form_email, form_password)
-    .then(() => {
-      this.log.logged = true;
-      if (firebase.auth().currentUser.emailVerified) {
-        this.log.logged = true;
-        this.router.navigate(["home/dashboard"]);
-      } else {
-        this.verified = false;
+      .then(() => {
+        var current_user;
+        try {
+          current_user = firebase.auth().currentUser;
+        }
+        catch (e) {
+          window.alert(e);
+          firebase.auth().signOut();
+          return null;
+        }
+        if (!current_user.emailVerified) {
+          this.verified = false;
+          window.alert("Please confirm your email!");
+          firebase.auth().signOut();
+          return null;
+        }
+        this.rest.requestUserDetails().subscribe(
+          (user_details) => {
+            console.log(user_details);
+            if (user_details["status"] == 1) {
+              this.log.setUserLogStatus(user_details);
+              this.router.navigate(["home/dashboard"]);
+              return null;
+            }
+            firebase.auth().signOut();
+            window.alert("User is not accepted by system admins yet. Try again later.");
+          },
+          (error) => {
+            firebase.auth().signOut();
+            window.alert(error);
+            this.router.navigate(["login"]);
+          }
+        );
+      })
+      .catch((error) => {
+        window.alert(error);
         this.router.navigate(["login"]);
-        window.alert("Please confirm your email!");
-        firebase.auth().signOut()
-      }
-
-    }).catch((error) => {
-      window.alert(error);
-      this.router.navigate(["login"]);
-    });
+      });
   }
 
   sendVerification(form_email, form_password) {

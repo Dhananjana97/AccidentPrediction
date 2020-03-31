@@ -1,33 +1,10 @@
-<hr>
-<div class="container bootstrap snippet">
-    <div class="row">
-        <div class="col-sm-10">
-            <h1>User name</h1>
-        </div>
-        <div class="col-sm-2">
-            <a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
-        </div>
+<div class="card text-center">
+    <div class="card-header">
+        {{getUserInfo("name")}}
     </div>
-    <div class="row">
-        <div class="col-sm-3">
-            <ul class="list-group">
-                <li class="list-group-item text-muted">Profile</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Joined</strong></span> 2.13.2014</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Last seen</strong></span> Yesterday</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Real name</strong></span> Joseph Doe</li>
-            </ul>
-        </div>
-        <div class="col-sm-9">
-            <div class="tab-content">
-                <div class="tab-pane active" id="home">
-                    <hr>
-                    <div class="row">
-                        <h1>Description</h1>
-                        <p>sadadddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsdsd</p>
-                    </div>
-                </div>
-                <hr>
-            </div>
-        </div>
+    <div class="card-body">
+        <h5 class="card-title">{{getUserInfo("user_type")}}</h5>
+        <h5 class="card-title">{{getUserInfo("email")}}</h5>
+        <p class="card-text">{{getUserInfo("rank")}}</p>
     </div>
 </div>

@@ -21,7 +21,7 @@ export class RolerequestsComponent implements OnInit {
     console.log("cancelled id==>"+id);
   }
   
-  requests = this.restService.getRoleRequests();
+  // requests = this.restService.getRoleRequests();
 
 
 }

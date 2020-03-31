@@ -4,24 +4,27 @@ import { MatDialog } from '@angular/material/dialog';
 import { AccidenteditdialogComponent } from '../dialogs/accidenteditdialog/accidenteditdialog.component';
 import { DeletedialogComponent } from '../dialogs/deletedialog/deletedialog.component';
 import { RestService } from 'src/app/services/rest/rest.service';
+import { AreyousureComponent } from '../dialogs/areyousure/areyousure.component';
 
 const accidents = [
   {
-    reference_number: 231111111111,
-    grid_ref_easting: 12434,
-    grid_ref_northing: 222,
+    id:"2334d",
+    reference_number: "231111111111",
+    grid_ref_easting: "12434",
+    grid_ref_northing: "222",
     road_surface: "wet",
-    vehicle_amount: 2,
+    no_of_vahicles: 2,
     date: "2019/1/2",
-    time: 1243,
-    first_road_class: "we",
+    time: "1243",
+    _1st_road_class: "we",
     lightning_condition: "goog",
-    weather_condition: "wet",
-    casualty_class: "pedestrian",
+    weather: "wet",
+    _class: "pedestrian",
     casualty_severity: "hand",
-    casualty_sex: "sex",
-    casualty_age: "23",
-    vehicle_type: "van"
+    sex_of_casualty: "sex",
+    age_of_casualty: "23",
+    vehicle_type: "van",
+    casualty:"ss"
   }
 ];
 @Component({
@@ -38,6 +41,7 @@ export class AccidentdetailsComponent implements OnInit {
 
 
   displayedColumns: string[] = [
+    'id',
     'reference number',
     'grid ref easting and northing',
     'road surface',
@@ -46,6 +50,7 @@ export class AccidentdetailsComponent implements OnInit {
     'first road class',
     'lightning condition',
     'weather condition',
+    'casualty',
     'casualty class',
     'casualty severity',
     'casualty sex and age',
@@ -61,9 +66,14 @@ export class AccidentdetailsComponent implements OnInit {
   }
 
   delete(reference_no) {
-    let dialogRef = this.dialog.open(DeletedialogComponent);
+    let dialogRef = this.dialog.open(AreyousureComponent,{data:"Are you sure want to delete the accident from database?"});
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      if (result==true){
+
+      }
+      else if(result==false){
+
+      }
     });
   }
 
@@ -89,11 +99,6 @@ export class AccidentdetailsComponent implements OnInit {
     }
     console.log(temp_object);
     return temp_object;
-  }
-
-  testApi() {
-    this.rest.testApi().subscribe((data) =>
-      console.log(data));
   }
   
 }

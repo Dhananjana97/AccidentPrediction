@@ -14,7 +14,7 @@
         <mat-form-field class="example-full-width">
             <mat-label>Rank</mat-label>
             <select matNativeControl required #rank value="">
-                <option *ngFor="let rank of ranks"> {{rank}} </option>
+                <option *ngFor="let rank of getRanks()"> {{rank}} </option>
             </select>
         </mat-form-field>
 

@@ -16,7 +16,7 @@ import { SystemRoles } from './../../systemData/systenRoles'
 })
 export class TopnavbarComponent implements OnInit {
 
-  constructor( public log : LogService, private afAuth:AngularFireAuth , private router:Router, private dialog: MatDialog) { }
+  constructor( public logService : LogService, private afAuth:AngularFireAuth , private router:Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -27,19 +27,10 @@ export class TopnavbarComponent implements OnInit {
   signout() {
     console.log("loggedout");
     this.afAuth.auth.signOut();
-    this.log.logged = false;
-    console.log(this.log.logged);
+    this.logService.setLog(false);
+    console.log(this.logService.getLoginInfo());
     this.router.navigate(["login"]);
   }
   
-  user_has_logged = this.log.getlog();
-  user_type = this.log.getUserType();
-
-  roleRequest(){
-    let dialogRef = this.dialog.open(RoleRequestDialogComponent,{data:{other_roles:this.log.getOtherRoles(this.user_type,SystemRoles),current_role:this.user_type}});
-    console.log(dialogRef);
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-    });
-  }
+  user_has_logged = this.logService.getLog();
 }

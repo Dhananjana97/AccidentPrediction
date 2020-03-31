@@ -7,6 +7,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -14,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
   declarations: [],
   imports: [
     CommonModule,
+    MatCardModule,
     MatIconModule,
     MatSelectModule,
     MatDialogModule,
@@ -21,8 +23,9 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatInputModule
   ],
-  exports:[
+  exports: [
     MatIconModule,
+    MatCardModule,
     MatSelectModule,
     MatDialogModule,
     MatTableModule,
