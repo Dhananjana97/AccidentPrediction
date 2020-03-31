@@ -5,6 +5,7 @@ import com.fyp.accident_monitor.Entities.User;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -18,6 +19,7 @@ public interface UserServices {
 
     User getUserDetailsById(String userid) throws NoSuchElementException;
 
+    List<User> getAllUsersApproved(int status);
     User getUserDetailsByName(String name) throws NoSuchElementException;
 
     User saveUserRegRequest(User user) throws SQLException;

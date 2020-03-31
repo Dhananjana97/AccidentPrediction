@@ -49,7 +49,7 @@ public class UserJdbcDao {
 
         String sql = "insert into user_role(user_id,role_id)\n" +
                 "select user_id,role_id from\n" +
-                "users,roles where users.user_id=:userid and roles.role_name=:roleName";
+                "users,roles where users.user_id=:userid and roles.role_name=:roleName and users.status=1";
         int assignmentstatus = namedParameterJdbcTemplate.update(sql, parameters);
 
         return assignmentstatus;

@@ -39,6 +39,17 @@ public class UserController {
         }
         return retUser;
     }
+    @RequestMapping(value = "/getallusers/{status}", method = RequestMethod.GET)
+    public List<User> getAllApprovedUsers(@PathVariable(name = "status") int status,HttpServletRequest request) throws NoSuchElementException, Exception {
+        List<User> retUsers = null;
+        String authorizedPrivCode = "VIEW.ANY.USER.DETAILS";
+        if (securityServices.checkAuthorization(request, authorizedPrivCode)) {
+            retUsers = userServices.getAllUsersApproved(status);
+        }
+        return retUsers;
+    }
+
+
 
     @RequestMapping(value = "/getmebyid", method = RequestMethod.GET)
     public User getUserDetailsById(HttpServletRequest request) throws NoSuchElementException, Exception {
