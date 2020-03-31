@@ -30,6 +30,7 @@ import { RoleRequestDialogComponent } from './components/dialogs/role-request-di
 import { MaterialModule } from './customModules/material/material.module';
 import { EditprofileComponent } from './components/dialogs/editprofile/editprofile.component';
 import { AreyousureComponent } from './components/dialogs/areyousure/areyousure.component';
+import { ApproveComponent } from './components/approve/approve.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { AreyousureComponent } from './components/dialogs/areyousure/areyousure.
     SendrequestsComponent,
     RoleRequestDialogComponent,
     EditprofileComponent,
-    AreyousureComponent
+    AreyousureComponent,
+    ApproveComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

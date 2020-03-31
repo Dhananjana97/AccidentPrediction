@@ -7,6 +7,7 @@ import { AdminGuard, StaffGuard, AuthGuard, UnAuthGuard, GuestGuard } from './gu
 import { AccidentdetailsComponent } from './components/accidentdetails/accidentdetails.component';
 import { HomeComponent } from './components/home/home.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { ApproveComponent } from './components/approve/approve.component';
 
 
 
@@ -45,6 +46,11 @@ export const appRoutes = [
             {
                 path: priviledges.Admin[0].url_name,
                 component: ManagerolesComponent,
+                canActivate: [AdminGuard]
+            },
+            {
+                path: priviledges.Admin[1].url_name,
+                component: ApproveComponent,
                 canActivate: [AdminGuard]
             },
             {

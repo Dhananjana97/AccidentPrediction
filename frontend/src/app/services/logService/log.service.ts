@@ -72,7 +72,7 @@ export class LogService {
   }
 }
 
-export interface response_user  
+export interface User  
 {
   userId:String,
   name:String,

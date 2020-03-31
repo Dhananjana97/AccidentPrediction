@@ -4,6 +4,11 @@ export const priviledges = {
       url_name: "manageroles",
       web_name: "Manage Roles",
       icon_class: "fa fa-users"
+    },
+    {
+      url_name: "approveusers",
+      web_name: "Approve New Users",
+      icon_class: "fa fa-users"
     }
   ],
   Staff: [

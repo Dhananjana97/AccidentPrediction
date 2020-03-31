@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService } from 'src/app/services/rest/rest.service';
-import { LogService, response_user } from 'src/app/services/logService/log.service';
+import { LogService, User } from 'src/app/services/logService/log.service';
 import { SystemRoles } from './../../systemData/systenRoles';
 import { EditprofileComponent } from '../dialogs/editprofile/editprofile.component';
 import { Router } from '@angular/router';

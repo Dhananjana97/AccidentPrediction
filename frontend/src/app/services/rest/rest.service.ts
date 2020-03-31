@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { response_user } from './../logService/log.service';
+import { User } from './../logService/log.service';
 import { Accident } from 'src/app/components/accidentdetails/accidentdetails.component';
 
 @Injectable({
@@ -12,9 +12,7 @@ export class RestService {
 
   constructor(private http: HttpClient) { }
 
-  testApi(): Observable<any> {
-    return this.http.get("http://localhost:3001/api/external");
-  }
+
   sendFirstUser(data): Observable<any> {
     return this.http.post("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/usersignup", data)
       .pipe(
@@ -51,8 +49,8 @@ export class RestService {
         catchError(this.handleError) // then handle the error
       );
   }
-  getAllUserData():Observable<response_user[]> {
-    return this.http.get<response_user[]>("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/getallusers/1")
+  getAllUserData():Observable<User[]> {
+    return this.http.get<User[]>("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/getallusers/1")
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
@@ -66,6 +64,23 @@ export class RestService {
       catchError(this.handleError) // then handle the error
     );
   }
+
+  getAllNonApprovedData():Observable<User[]>{
+    return this.http.get<User[]>("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/getallusers/0")
+      .pipe(
+        retry(3), // retry a failed request up to 3 times
+        catchError(this.handleError) // then handle the error
+      );
+  }
+
+  approveuser(uid,email){
+    return this.http.put("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/approveUser",{userId:uid,emailAddress:email})
+    .pipe(
+      retry(3), // retry a failed request up to 3 times
+      catchError(this.handleError) // then handle the error
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);
