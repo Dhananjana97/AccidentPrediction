@@ -26,6 +26,8 @@ public interface UserServices {
 
     int assignRolesToUser(RoleAssignment roleAssignment)throws SQLException;
 
+    //int assignRolesToUserDao(RoleAssignment roleAssignment)throws SQLException;
+
     int removeRolesFromUser(RoleAssignment roleAssignment)throws SQLException;
 
     int approveUserNNotify(User user) throws SQLException;

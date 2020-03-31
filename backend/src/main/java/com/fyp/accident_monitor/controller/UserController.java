@@ -80,6 +80,7 @@ public class UserController {
         Response response = new Response();
         if (securityServices.checkAuthorization(request, authorizedPrivCode)) {
             int success = userServices.assignRolesToUser(roleAssignment);
+           // userServices.
             if (success == 0) {
                 response.setMessage("Roles Assignment Failed");
             } else {
@@ -109,9 +110,7 @@ public class UserController {
 
 
     @RequestMapping(path = "/approveUser", consumes = "application/json", produces = "application/json", method = RequestMethod.PUT)
-    public
-    @ResponseBody
-    Response approveUser(@RequestBody User user, HttpServletRequest request) throws Exception, SQLException, MailException {
+    public @ResponseBody Response approveUser(@RequestBody User user, HttpServletRequest request) throws Exception, SQLException, MailException {
 
         String authorizedPrivCode = "APPROVE.USER";
         Response response = new Response();

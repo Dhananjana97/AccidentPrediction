@@ -1,8 +1,11 @@
 package com.fyp.accident_monitor.services;
 
+import com.fyp.accident_monitor.Dao.RoleDao;
 import com.fyp.accident_monitor.Dao.UserDao;
 import com.fyp.accident_monitor.Dao.UserJdbcDao;
+import com.fyp.accident_monitor.Dao.UserRoleDao;
 import com.fyp.accident_monitor.Entities.Response;
+import com.fyp.accident_monitor.Entities.Role;
 import com.fyp.accident_monitor.Entities.RoleAssignment;
 import com.fyp.accident_monitor.Entities.User;
 import org.hibernate.Criteria;
@@ -16,9 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Created by Asus on 3/20/2020.
@@ -31,6 +32,12 @@ public class UserServicesImpl implements UserServices {
 
     @Autowired
     private UserJdbcDao userJdbcDao;
+
+    @Autowired
+    private UserRoleDao userRoleDao;
+
+    @Autowired
+    private RoleDao roleDao;
 
     @Autowired
     private NotificationService notificationService;
@@ -76,6 +83,16 @@ public class UserServicesImpl implements UserServices {
         return success;
     }
 
+//    @Override
+//    public int assignRolesToUserDao(RoleAssignment roleAssignment) throws SQLException {
+//        User user = userDao.findById(roleAssignment.getRoleAssigningUserId()).orElse(null);
+//        Set<Role> roleSet = user.getRoles();
+////        for (:
+////             ){
+////
+////        }
+//    }
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public int removeRolesFromUser(RoleAssignment roleAssignment) throws SQLException {
@@ -92,18 +109,30 @@ public class UserServicesImpl implements UserServices {
 
     @Transactional
     @Override
-    public int approveUserNNotify(User fuser) throws SQLException, MailException {
+    public int approveUserNNotify(User approveUser) throws SQLException, MailException {
 
-        int success = userJdbcDao.approveUser(fuser.getUserId());
+        int success = userJdbcDao.approveUser(approveUser.getUserId());
+
         if (success == 1) {
-            User retUser = userDao.findById(fuser.getUserId()).orElse(null);
-            if (retUser.getEmailAddress() != null) {
-                notificationService.sendNotification(retUser);
+            RoleAssignment roleAssignment = getRoleAssignmentForGuest(approveUser);
+            if (assignRolesToUser(roleAssignment) == 1) {
+                User retUser = userDao.findById(approveUser.getUserId()).orElse(null);
+                if (retUser.getEmailAddress() != null) {
+                    notificationService.sendNotification(retUser);
+                }
             }
-
         }
 
         return success;
+    }
+
+    private RoleAssignment getRoleAssignmentForGuest(User approveUser) {
+        RoleAssignment roleAssignment = new RoleAssignment();
+        List<String> roles = new ArrayList<String>();
+        roles.add("Guest");
+        roleAssignment.setRoleAssigningUserId(approveUser.getUserId());
+        roleAssignment.setAssigningRoleName(roles);
+        return roleAssignment;
     }
 
     @Transactional
