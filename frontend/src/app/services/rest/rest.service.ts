@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { response_user } from './../logService/log.service';
+import { Accident } from 'src/app/components/accidentdetails/accidentdetails.component';
 
 @Injectable({
   providedIn: 'root'
@@ -36,17 +38,34 @@ export class RestService {
       );
   }
   assignRole(uid, role) {
-    if (role == "Admin") { role = ["Admin", "Staff", "Guest"] }
-    else if (role == "Staff") { role = ["Staff", "Guest"] }
-    else if (role == "Officer") { role = ["Guest"] }
-
-    return this.http.post("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/roleassign", { roleAssigningUserId: uid, assigningRoleName: role })
+    return this.http.post("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/roleassign", { roleAssigningUserId: uid, assigningRoleName: [role] })
+      .pipe(
+        retry(3), // retry a failed request up to 3 times
+        catchError(this.handleError) // then handle the error
+      );
+  }
+  deleteRole(uid, role) {
+    return this.http.post("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/roleremove", { roleAssigningUserId: uid, removingRoles: [role] })
+      .pipe(
+        retry(3), // retry a failed request up to 3 times
+        catchError(this.handleError) // then handle the error
+      );
+  }
+  getAllUserData():Observable<response_user[]> {
+    return this.http.get<response_user[]>("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/getallusers/1")
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
       );
   }
 
+  getAllAccidents():Observable<Accident[]>{
+    return this.http.get<Accident[]>("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/getadllusers/1")
+    .pipe(
+      retry(3), // retry a failed request up to 3 times
+      catchError(this.handleError) // then handle the error
+    );
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);
@@ -60,15 +79,15 @@ export class RestService {
   };
 
 
-  getUserData() {
-    var k =  [
+  getUsecrData() {
+    var k = [
       {
         "userId": "JKZRNa2I1SU7tUvcqAPET1J0enJ3",
         "name": "wddwd@uuuuu.uu",
         "emailAddress": "wddwd@uuuuu.uu",
         "rank": "Rank1",
         "status": 0,
-        "roles": [1]
+        "roles": [{ roleName: "Admin", roleId: 1 }, { roleName: "Staff", roleId: 2 }, { roleName: "Guest", roleId: 3 }]
       },
       {
         "userId": "JKZRNa2I1SU7tUvcqAPET1J0enJ3",
@@ -76,20 +95,9 @@ export class RestService {
         "emailAddress": "sdsd@uuuuu.uu",
         "rank": "Rank1",
         "status": 0,
-        "roles": [1,2]
+        "roles": [{ roleName: "Admin", roleId: 1 }, { roleName: "Guest", roleId: 3 }]
       }
     ]
-    for (let l of k){
-      if(l["roles"].length==1){
-        l["user_type"]="Officer";
-      }
-      else if(l["roles"].length==2){
-        l["user_type"]="Staff";
-      }
-      else if(l["roles"].length==3){
-        l["user_type"]="Admin";
-      }
-    }
     return k;
   }
 }

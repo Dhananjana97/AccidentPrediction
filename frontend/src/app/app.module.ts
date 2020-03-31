@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AdminGuard, StaffGuard, OfficerGuard, AuthGuard, UnAuthGuard } from './guards/guard';
+import { AdminGuard, StaffGuard, GuestGuard, AuthGuard, UnAuthGuard } from './guards/guard';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -65,7 +65,7 @@ import { AreyousureComponent } from './components/dialogs/areyousure/areyousure.
   providers: [
     AdminGuard,
     StaffGuard,
-    OfficerGuard,
+    GuestGuard,
     AuthGuard,
     UnAuthGuard,
     {

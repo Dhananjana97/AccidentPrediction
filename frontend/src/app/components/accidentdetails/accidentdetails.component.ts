@@ -6,27 +6,6 @@ import { DeletedialogComponent } from '../dialogs/deletedialog/deletedialog.comp
 import { RestService } from 'src/app/services/rest/rest.service';
 import { AreyousureComponent } from '../dialogs/areyousure/areyousure.component';
 
-const accidents = [
-  {
-    id:"2334d",
-    reference_number: "231111111111",
-    grid_ref_easting: "12434",
-    grid_ref_northing: "222",
-    road_surface: "wet",
-    no_of_vahicles: 2,
-    date: "2019/1/2",
-    time: "1243",
-    _1st_road_class: "we",
-    lightning_condition: "goog",
-    weather: "wet",
-    _class: "pedestrian",
-    casualty_severity: "hand",
-    sex_of_casualty: "sex",
-    age_of_casualty: "23",
-    vehicle_type: "van",
-    casualty:"ss"
-  }
-];
 @Component({
   selector: 'accidentdetails',
   templateUrl: './accidentdetails.component.html',
@@ -34,31 +13,25 @@ const accidents = [
 })
 export class AccidentdetailsComponent implements OnInit {
 
-  constructor(private dialog: MatDialog, private rest: RestService) { }
+  constructor(private dialog: MatDialog, private restService: RestService) { }
 
   ngOnInit(): void {
+    this.getAllAccidents();
   }
 
+  public accidents;
+  dataSource = new MatTableDataSource(this.accidents);
 
-  displayedColumns: string[] = [
-    'id',
-    'reference number',
-    'grid ref easting and northing',
-    'road surface',
-    'vehicle amount',
-    'date and time',
-    'first road class',
-    'lightning condition',
-    'weather condition',
-    'casualty',
-    'casualty class',
-    'casualty severity',
-    'casualty sex and age',
-    'vehicle type',
-    'Action'
-  ];
-
-  dataSource = new MatTableDataSource(accidents);
+  getAllAccidents(){
+    this.restService.getAllAccidents().subscribe(
+      (success)=>{
+        this.accidents =  success;
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -100,5 +73,44 @@ export class AccidentdetailsComponent implements OnInit {
     console.log(temp_object);
     return temp_object;
   }
+
+  displayedColumns: string[] = [
+    'id',
+    'reference number',
+    'grid ref easting and northing',
+    'road surface',
+    'vehicle amount',
+    'date and time',
+    'first road class',
+    'lightning condition',
+    'weather condition',
+    'casualty',
+    'casualty class',
+    'casualty severity',
+    'casualty sex and age',
+    'vehicle type',
+    'Action'
+  ];
   
 }
+
+export interface Accident
+  {
+    id:Number,
+    reference_number: String,
+    grid_ref_easting: String,
+    grid_ref_northing: String,
+    road_surface: String,
+    no_of_vahicles: Number,
+    date:String,
+    time: String,
+    _1st_road_class: String,
+    lightning_condition: String,
+    weather: String,
+    _class: String,
+    casualty_severity: String,
+    sex_of_casualty: String,
+    age_of_casualty: String,
+    vehicle_type:String,
+    casualty:String
+  };

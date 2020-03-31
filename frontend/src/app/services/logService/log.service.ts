@@ -19,10 +19,10 @@ export class LogService {
     this.loginInfo = {
       name:data.name,
       rank:data.rank,
-      user_type: this.getRoleFromResponse(2),
-      priviledges: this.getPriviledgeList(2),
+      priviledges: this.getPriviledgeList(data.roles),
       uid:data.userId,
       email:data.emailAddress,
+      roles:this.setRoles(data.roles)
     }
     this.logged = true;
   }
@@ -47,26 +47,40 @@ export class LogService {
     return this.loginInfo;
   }
 
-  public getUserType() {
-    return this.loginInfo["user_type"];
+  public getRoles() {
+    return this.loginInfo["roles"];
   }
 
-  public getOtherRoles(role: string, systemRoles: string[]) {
-    let temp_system_roles = []
-    for (let x of systemRoles) {
-      if (x != role) {
-        temp_system_roles.push(x);
+  private setRoles(roles){
+    let temp_roles = [];
+    for ( let role of roles ){
+      temp_roles.push(role["roleName"]);
+    }
+    return temp_roles;
+  }
+
+
+
+  private getPriviledgeList(roles){
+    let temp_prviledges = [];
+    for (let role of roles){
+      for ( let priviledge of this.priviledges_list[role["roleName"]] ){
+        temp_prviledges.push(priviledge);
       }
     }
-    return temp_system_roles;
+    return temp_prviledges;
   }
+}
 
-  private getRoleFromResponse(responseRoleArray){
-    return "Admin";
+export interface response_user  
+{
+  userId:String,
+  name:String,
+  emailAddress:String,
+  rank:String,
+  status:Number,
+  roles:{
+    roleName:String,
+    roleId:Number
   }
-
-  private getPriviledgeList(responsePreviledge){
-    return this.priviledges_list["Admin"];
-  }
-
 }

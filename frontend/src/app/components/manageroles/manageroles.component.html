@@ -3,22 +3,22 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col">Current Role</th>
             <th scope="col">Email</th>
             <th scope="col">Rank</th>
             <th scope="col">Profile</th>
-            <th scope="col">New Role</th>
+            <th scope="col">Current Roles</th>
+            <th scope="col">New Roles</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let user of userData">
             <td></td>
             <td>{{user.name}}</td>
-            <td>{{user.user_type}}</td>
             <td>{{user.emailAddress}}</td>
             <td>{{user.rank}}</td>
             <td><button (click)="editProfile(user)">Profile</button></td>
-            <td><button (click)="changeRole(user.id,role,user.name)" *ngFor="let role of user.other_roles">{{role}}</button></td>
+            <td><button (click)="deleteRole(user.userId,role,user.name)" *ngFor="let role of user.own_roles">{{role}}</button></td>
+            <td><button (click)="addRole(user.userId,role,user.name)" *ngFor="let role of user.other_roles">{{role}}</button></td>
         </tr>
     </tbody>
 </table>

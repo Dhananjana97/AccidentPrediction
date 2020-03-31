@@ -1,10 +1,9 @@
 import { LoginComponent } from "./components/login/login.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
-import { RolerequestsComponent } from "./components/rolerequests/rolerequests.component";
 import { priviledges } from './systemData/priviledges';
 import { ManagerolesComponent } from './components/manageroles/manageroles.component';
 import { UserprofileComponent } from './components/userprofile/userprofile.component';
-import { AdminGuard, StaffGuard, AuthGuard, UnAuthGuard } from './guards/guard';
+import { AdminGuard, StaffGuard, AuthGuard, UnAuthGuard, GuestGuard } from './guards/guard';
 import { AccidentdetailsComponent } from './components/accidentdetails/accidentdetails.component';
 import { HomeComponent } from './components/home/home.component';
 import { SignupComponent } from './components/signup/signup.component';
@@ -34,26 +33,18 @@ export const appRoutes = [
         canActivate:[AuthGuard],
         children:[
             {
-                path: 'dashboard',
-                component: DashboardComponent
+                path: priviledges.Guest[0].url_name,
+                component: DashboardComponent,
+                canActivate: [GuestGuard]
             },
             {
-                path: 'profile',
+                path: priviledges.Guest[1].url_name,
                 component: UserprofileComponent,
-            },
-            {
-                path: 'login',
-                component: LoginComponent,
-        
+                canActivate: [GuestGuard]
             },
             {
                 path: priviledges.Admin[0].url_name,
                 component: ManagerolesComponent,
-                canActivate: [AdminGuard]
-            },
-            {
-                path: priviledges.Admin[1].url_name,
-                component: AccidentdetailsComponent,
                 canActivate: [AdminGuard]
             },
             {

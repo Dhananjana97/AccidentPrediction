@@ -44,10 +44,9 @@ export class LoginComponent implements OnInit {
         }
         this.rest.requestUserDetails().subscribe(
           (user_details) => {
-            console.log(user_details);
             if (user_details["status"] == 1) {
               this.log.setUserLogStatus(user_details);
-              this.router.navigate(["home/dashboard"]);
+              this.router.navigate(["home"]);
               return null;
             }
             firebase.auth().signOut();

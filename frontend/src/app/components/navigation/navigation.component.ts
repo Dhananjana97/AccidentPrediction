@@ -15,5 +15,4 @@ export class NavigationComponent implements OnInit {
   activeRoute(routename: string): boolean{
       return this.router.url.indexOf(routename.trim().toLowerCase()) > -1;
   }
-  
 }

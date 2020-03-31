@@ -5,10 +5,9 @@
                 <div class="dropdown profile-element">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
-                          <span class="block m-t-xs">
-                          <strong class="font-bold">{{loginInfo.name}}</strong><br>
-                          <strong class="font-bold">{{loginInfo.user_type}}</strong>
-                      </span>
+                            <span class="block m-t-xs">
+                            <strong  class="font-bold">{{loginInfo.name}}<br></strong>
+                            </span>
                         <span class="text-muted text-xs block">{{loginInfo.rank}}</span>
                         </span>
                     </a>
@@ -17,12 +16,7 @@
                     APS
                 </div>
             </li>
-            <li [ngClass]="{active: activeRoute('dashboard')}">
-                <a [routerLink]="['./dashboard']"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboards</span></a>
-            </li>
-            <li [ngClass]="{active: activeRoute('profile')}">
-                <a [routerLink]="['./profile']"><i class="fa fa-user"></i> <span class="nav-label">User Profile</span></a>
-            </li>
+
             <li *ngFor="let priviledge of loginInfo.priviledges" [ngClass]="{active: activeRoute(priviledge.url_name)}">
                 <a [routerLink]="['./'+priviledge.url_name]"><i class={{priviledge.icon_class}}></i> <span class="nav-label">{{priviledge.web_name}}</span></a>
             </li>

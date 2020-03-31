@@ -8,7 +8,7 @@ export class AdminGuard implements CanActivate {
     constructor(private logService:LogService, public router: Router){}
 
     canActivate() {
-        if (this.logService.getUserType() == "Admin"){
+        if (this.logService.getRoles().indexOf("Admin") != -1){
             return true;
         }
         this.router.navigate(["login"]);
@@ -20,7 +20,7 @@ export class StaffGuard implements CanActivate {
     constructor(private logService:LogService, public router: Router){}
 
     canActivate() {
-        if (this.logService.getUserType() == "Staff" || this.logService.getUserType() == "Staff" ){
+        if (this.logService.getRoles().indexOf("Staff") != -1 ){
             return true;
         }
         this.router.navigate(["login"]);
@@ -28,11 +28,11 @@ export class StaffGuard implements CanActivate {
 }
 
 @Injectable()
-export class OfficerGuard implements CanActivate {
+export class GuestGuard implements CanActivate {
     constructor(private logService:LogService, public router: Router){}
 
     canActivate() {
-        if (this.logService.getUserType() == "Staff" || this.logService.getUserType() == "Staff" ||  this.logService.getUserType() == "Officer" ){
+        if (this.logService.getRoles().indexOf("Guest") != -1 ){
             return true;
         }
         this.router.navigate(["login"]);
