@@ -83,26 +83,22 @@ public class UserServicesImpl implements UserServices {
         return success;
     }
 
-//    @Override
-//    public int assignRolesToUserDao(RoleAssignment roleAssignment) throws SQLException {
-//        User user = userDao.findById(roleAssignment.getRoleAssigningUserId()).orElse(null);
-//        Set<Role> roleSet = user.getRoles();
-////        for (:
-////             ){
-////
-////        }
-//    }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int removeRolesFromUser(RoleAssignment roleAssignment) throws SQLException {
+    public int removeRolesFromUser(RoleAssignment roleAssignment) throws SQLException, UnsupportedOperationException {
         int success = 0;
-        for (String roleName : roleAssignment.getRemovingRoles()) {
-            success = userJdbcDao.saveRoleRemoval(roleAssignment.getRoleAssigningUserId(), roleName);
-            if (success == 0) {
-                throw new SQLException("Role Removal Failed");
+        if (roleAssignment.getRemovingRoles().contains("Guest")) {
+            throw new UnsupportedOperationException("Guest Previleges can't remove");
+        } else {
+            for (String roleName : roleAssignment.getRemovingRoles()) {
+                success = userJdbcDao.saveRoleRemoval(roleAssignment.getRoleAssigningUserId(), roleName);
+                if (success == 0) {
+                    throw new SQLException("Role Removal Failed");
+                }
             }
         }
+
         return success;
     }
 

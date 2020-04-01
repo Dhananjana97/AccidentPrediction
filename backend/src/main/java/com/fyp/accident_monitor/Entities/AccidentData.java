@@ -37,7 +37,9 @@ public class AccidentData {
     private String casualty_severity;
     private String sex_of_casualty;
     private String age_of_casualty;
-    private String vehicle_type;
+    private String vehicleType;
+    private String city;
+    private boolean holiday;
 
     public AccidentData() {
         super();
@@ -45,7 +47,7 @@ public class AccidentData {
 
     public AccidentData(int id, String reference_number, String grid_ref_easting, String grid_ref_northing,
                         int no_of_vehicles, String date, String time, String _1st_road_class, String road_surface,
-                        String lightning_conditions, String weather, String casualty, String _class, String causalty_severity,
+                        String lightning_conditions, String weather, String casualty, String _class, String casualty_severity,
                         String sex_of_casualty, String age_of_casualty, String vehicle_type) {
         super();
         this.id = id;
@@ -61,10 +63,10 @@ public class AccidentData {
         this.weather = weather;
         this.casualty = casualty;
         this._class = _class;
-        this.casualty_severity = causalty_severity;
+        this.casualty_severity = casualty_severity;
         this.sex_of_casualty = sex_of_casualty;
         this.age_of_casualty = age_of_casualty;
-        this.vehicle_type = vehicle_type;
+        this.vehicleType = vehicle_type;
     }
 
     public int getId() {
@@ -171,12 +173,12 @@ public class AccidentData {
         this._class = _class;
     }
 
-    public String getCausalty_severity() {
+    public String getCasualty_severity() {
         return casualty_severity;
     }
 
-    public void setCausalty_severity(String causalty_severity) {
-        this.casualty_severity = causalty_severity;
+    public void setCasualty_severity(String casualty_severity) {
+        this.casualty_severity = casualty_severity;
     }
 
     public String getSex_of_casualty() {
@@ -195,13 +197,28 @@ public class AccidentData {
         this.age_of_casualty = age_of_casualty;
     }
 
-    public String getVehicle_type() {
-        return vehicle_type;
+    public String getVehicleType() {
+        return vehicleType;
     }
 
-    public void setVehicle_type(String vehicle_type) {
-        this.vehicle_type = vehicle_type;
+    public void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
     }
 
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public boolean isHoliday() {
+        return holiday;
+    }
+
+    public void setHoliday(boolean holiday) {
+        this.holiday = holiday;
+    }
 }

@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 
 import com.fyp.accident_monitor.services.SecurityServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,8 +57,30 @@ public class AccidentDataController {
 
     }
 
+    @RequestMapping(value = "/getallaccident/{pagenumber}", method = RequestMethod.GET)
+    public Page<AccidentData> getAllAccidents(@PathVariable(name = "pagenumber") int pageNumber, HttpServletRequest request) throws NoSuchElementException, Exception {
+        String authorizedPrivCode = "ACCIDENT.VIEW";
+        Page<AccidentData> accidentData = null;
+        if (securityServices.checkAuthorization(request, authorizedPrivCode)) {
+            accidentData = accidentDataService.getAllAccidents(pageNumber-1);
+        }
+        return accidentData;
+
+    }
+
+    @RequestMapping(value = "/getaccidentsbyfilter/{pagenumber}", method = RequestMethod.POST)
+    public Page<AccidentData> getAllAccidentsByDateNType(@PathVariable(name = "pagenumber") int pagenumber,@RequestBody AccidentData accidentDataReq, HttpServletRequest request) throws NoSuchElementException, Exception {
+        String authorizedPrivCode = "ACCIDENT.VIEW";
+        Page<AccidentData> accidentData = null;
+        if (securityServices.checkAuthorization(request, authorizedPrivCode)) {
+            accidentData = accidentDataService.getAccidentsByDateNType(accidentDataReq,pagenumber);
+        }
+        return accidentData;
+
+    }
+
     @RequestMapping(value = "/updateaccident", method = RequestMethod.PUT)
-    public AccidentData updateAccident(@RequestBody AccidentData accidentObject,HttpServletRequest request) throws NoSuchElementException,Exception {
+    public AccidentData updateAccident(@RequestBody AccidentData accidentObject, HttpServletRequest request) throws NoSuchElementException, Exception {
         String authorizedPrivCode = "ACCIDENT.UPDATE";
         AccidentData updatedAccidentData = null;
         if (securityServices.checkAuthorization(request, authorizedPrivCode)) {

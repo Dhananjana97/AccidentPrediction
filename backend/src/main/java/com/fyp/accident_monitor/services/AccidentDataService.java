@@ -1,8 +1,11 @@
 package com.fyp.accident_monitor.services;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.fyp.accident_monitor.Entities.AccidentData;
+
+import java.util.List;
 
 @Service
 public interface AccidentDataService {
@@ -14,5 +17,10 @@ public interface AccidentDataService {
 	AccidentData updateAccident(AccidentData object);
 	
 	AccidentData getAccidentById(Integer id);
+
+	Page<AccidentData> getAllAccidents(int pageNumber);
+
+	Page<AccidentData> getAccidentsByDateNType(AccidentData accidentData,int pageNumber);
+
 	
 }
