@@ -1,3 +1,21 @@
 button {
     margin: 6px;
 }
+
+.authClass {
+    background: rgb(229, 235, 235);
+    width: 50%;
+    margin: auto;
+    top: 142px;
+    position: relative;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
+}

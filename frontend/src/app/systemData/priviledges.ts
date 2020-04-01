@@ -3,7 +3,7 @@ export const priviledges = {
     {
       url_name: "manageroles",
       web_name: "Manage Roles",
-      icon_class: "fa fa-users"
+      icon_class: "fa fa-university"
     },
     {
       url_name: "approveusers",

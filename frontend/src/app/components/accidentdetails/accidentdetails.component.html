@@ -1,10 +1,28 @@
-<div class="full_table">
+<div class="authClass">
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+            <mat-label>Date</mat-label>
+            <input matInput placeholder="11/11/1996" name="first" #date>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>City</mat-label>
+            <input matInput placeholder="Colombo" name="ficrst" #city>
+        </mat-form-field>
+
+        <button (click)="getAllAccidents(date.value, city.value, 1)">GEt Dta</button>
+        <button (click)="addAccident()">Add new accident</button>
+
+    </form>
+    <br>
+</div>
+
+
+<div class="full_table" *ngIf="data_recieved">
     <div class="row">
         <mat-form-field style="width: 75%;">
             <mat-label>Filter</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
         </mat-form-field>
-        <button (click)="addAccident()">Add new accident</button>
     </div>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -17,8 +35,8 @@
         </ng-container>
 
         <ng-container matColumnDef="reference number">
-            <th mat-header-cell *matHeaderCellDef> Reference number </th>
-            <td mat-cell *matCellDef="let element"> {{element.reference_number}} </td>
+            <th mat-header-cell *matHeaderCellDef> Reference number and City </th>
+            <td mat-cell *matCellDef="let element"> {{element.reference_number}} <br> {{element.city}} </td>
         </ng-container>
 
         <ng-container matColumnDef="grid ref easting and northing">
@@ -33,12 +51,12 @@
 
         <ng-container matColumnDef="vehicle amount">
             <th mat-header-cell *matHeaderCellDef> Vehicle amount </th>
-            <td mat-cell *matCellDef="let element"> {{element.no_of_vahicles}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.no_of_vehicles}} </td>
         </ng-container>
 
         <ng-container matColumnDef="date and time">
-            <th mat-header-cell *matHeaderCellDef> Date and Time</th>
-            <td mat-cell *matCellDef="let element"> {{element.date}} <br> {{element.time}} </td>
+            <th mat-header-cell *matHeaderCellDef> Date and Time and holiday</th>
+            <td mat-cell *matCellDef="let element"> {{element.date}} <br> {{element.time}} <br>{{element.holiday}} </td>
         </ng-container>
 
         <ng-container matColumnDef="first road class">
@@ -48,7 +66,7 @@
 
         <ng-container matColumnDef="lightning condition">
             <th mat-header-cell *matHeaderCellDef> Lightning </th>
-            <td mat-cell *matCellDef="let element"> {{element.lightning_condition}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.lightning_conditions}} </td>
         </ng-container>
 
         <ng-container matColumnDef="weather condition">
@@ -84,7 +102,7 @@
         <ng-container matColumnDef="Action">
             <th mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element">
-                <a (click)="delete(element.reference_number)">
+                <a (click)="delete(element.id)">
                     <mat-icon class="delete">delete</mat-icon>
                 </a> <br>
                 <a (click)="edit(element)">
@@ -96,4 +114,17 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a (click)="pagination(current_state.pageNumber-1)" class="page-link">Previos</a>
+            </li>
+
+            <li (click)="pagination(page)" *ngFor="let page of current_state.page_array" class="page-item"><a class="page-link">{{page}}</a></li>
+
+            <li class="page-item">
+                <a (click)="pagination(current_state.pageNumber+1)" class="page-link">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>

@@ -32,7 +32,7 @@
         <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">Vehicle Amount</div>
-                <input [(ngModel)]="data.no_of_vahicles" type="text" name="vehicle-amount" class="input" value={{data.no_of_vahicles}}>
+                <input [(ngModel)]="data.no_of_vehicles" type="text" name="vehicle-amount" class="input" value={{data.no_of_vehicles}}>
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@
         <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">LIghtning condition</div>
-                <input [(ngModel)]="data.lightning_condition" type="text" name="linghtning" class="input" value={{data.lightning_condition}}>
+                <input [(ngModel)]="data.lightning_conditions" type="text" name="linghtning" class="input" value={{data.lightning_conditions}}>
             </div>
         </div>
     </div>
@@ -78,7 +78,7 @@
         <div class="col-sm-12">
             <div class="inputBox">
                 <div class="inputText">Vehicle type</div>
-                <input [(ngModel)]="data.vehicle_type" type="text" name="vehicle-type" class="input" value={{data.vehicle_type}}>
+                <input [(ngModel)]="data.vehicleType" type="text" name="vehicle-type" class="input" value={{data.vehicle_type}}>
             </div>
         </div>
     </div>
@@ -87,6 +87,12 @@
             <div class="inputBox">
                 <div class="inputText"> Casualty </div>
                 <input [(ngModel)]="data.casualty" type="text" name="class" class="input" value={{data.casualty}}>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="inputBox">
+                <div class="inputText"> Reference Number</div>
+                <input [(ngModel)]="data.reference_number" type="text" name="class" class="input" value={{data.reference_number}}>
             </div>
         </div>
     </div>
@@ -117,6 +123,20 @@
             <div class="inputBox">
                 <div class="inputText">Age</div>
                 <input [(ngModel)]="data.age_of_casualty" type="text" name="age" class="input" value={{data.age_of_casualty}}>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="inputBox">
+                <div class="inputText"> City </div>
+                <input [(ngModel)]="data.city" type="text" name="class" class="input" value={{data.city}}>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="inputBox">
+                <div class="inputText"> Holiday</div>
+                <input [(ngModel)]="data.holiday" type="text" name="class" class="input" value={{data.holiday}}>
             </div>
         </div>
     </div>
