@@ -3,8 +3,14 @@
 @import '~firebaseui/dist/firebaseui.css';
 .snack-error {
     background: crimson;
+    color: lightcyan;
 }
 
 .snack-success {
-    background: lightblue;
+    background-color: lightblue;
+    color: mediumblue;
+}
+
+.mat-simple-snackbar-action.ng-star-inserted {
+    color: inherit;
 }

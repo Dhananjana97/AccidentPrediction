@@ -37,7 +37,7 @@ export class AccidentdetailsComponent implements OnInit {
     console.log(date+city+page)
     if (!Number(new Date(date))) {
       if (date == "") { date = null }
-      else { window.alert("Insert correct date input!"); return null; }
+      else {this.SnackBar.openSnackBar("Insert correct date input!","error"); return null; }
     }
     if (city == "") { city = null }
 
@@ -52,7 +52,7 @@ export class AccidentdetailsComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        window.alert("Error!")
+        this.SnackBar.openSnackBar("Accident data cannot be loaded!","error");
       }
     )
   }
@@ -75,10 +75,11 @@ export class AccidentdetailsComponent implements OnInit {
         this.RestService.deleteAccident(uid).subscribe(
           (success) => {
             this.getAllAccidents(this.current_state.date, this.current_state.city, this.current_state.pageNumber);
+            this.SnackBar.openSnackBar("Accident deleted successfully!","success");
           },
           (error) => {
             console.log(error);
-            window.alert("The accident couldnt be deleted!");
+            this.SnackBar.openSnackBar("The accident wasn't deleted. Try again!","error");
           }
         )
       }
@@ -94,13 +95,16 @@ export class AccidentdetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (!result) { return null }
       let isFormValid = this.isFormValid(result);
-      if (isFormValid != true) { window.alert(isFormValid.message); return null }
+      if (isFormValid != true) { this.SnackBar.openSnackBar(isFormValid.message,"error");
+      ; return null }
       this.RestService.editAccident(result).subscribe(
         (success) => {
           this.getAllAccidents(this.current_state.date, this.current_state.city, this.current_state.pageNumber);
+          this.SnackBar.openSnackBar("The accident successfully edited!","success");
         },
         (error) => {
           console.log(error);
+          this.SnackBar.openSnackBar("The accident wasn't edited successfully. Try again!","error");
         }
       )
     });
@@ -112,13 +116,16 @@ export class AccidentdetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (!result) { return null }
       let isFormValid = this.isFormValid(result);
-      if (isFormValid != true) { window.alert(isFormValid.message); return null }
+      if (isFormValid != true) {this.SnackBar.openSnackBar("The accident wasn't added successfully. Try again!","error");
+      ; return null }
       this.RestService.addAccident(result).subscribe(
         (success) => {
           this.getAllAccidents(result.date, result.city, 1);
+          this.SnackBar.openSnackBar("The accidentadded successfully!","success");
         },
         (error) => {
           console.log(error);
+          this.SnackBar.openSnackBar("The accident wasn't added successfully. Try again!","error");
         }
       )
     });
