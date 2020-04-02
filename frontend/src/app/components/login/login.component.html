@@ -14,10 +14,9 @@
         </div>
 
         <div class="button-area">
-            <button class="btn btn-primary btn-lg btn-login" (click)="login(email.value, password.value)">Log In</button><br>
-
-            <button class="btn btn-primary btn-lg" *ngIf="!verified" (click)="sendVerification(email.value, password.value)">Send Verification</button>
-
+            <div class="button-area-sub">
+                <button class="btn btn-primary btn-lg btn-login" (click)="login(email.value, password.value)">Log In</button>
+            </div>
             <a routerLink="./../register">Create an account!</a>
         </div>
     </form>

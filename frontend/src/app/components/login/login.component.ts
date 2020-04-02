@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  verified = true;
+  // verified = true;
   // throw new SyntaxError("Incomplete data: no name");
 
   login(form_email, form_password) {
@@ -37,10 +37,15 @@ export class LoginComponent implements OnInit {
           return null;
         }
         if (!current_user.emailVerified) {
-          this.verified = false;
-          window.alert("Please confirm your email!");
-          firebase.auth().signOut();
-          return null;
+          current_user.sendEmailVerification().then(function () {
+            window.alert("Try to login after the email verification.The verification email has been sent!");
+            firebase.auth().signOut();
+            return null;
+          }).catch(function (error) {
+            window.alert("Error! The verification email cannot be sent!");
+            firebase.auth().signOut();
+            return null;
+          });
         }
         this.rest.requestUserDetails().subscribe(
           (user_details) => {
@@ -69,11 +74,15 @@ export class LoginComponent implements OnInit {
     firebase.auth().signInWithEmailAndPassword(form_email, form_password)
       .then(() => {
         firebase.auth().currentUser.sendEmailVerification().then(function () {
-          window.alert("Verify your email.The verification email has been sent!")
+          window.alert("Verify your email.The verification email has been sent!");
+          firebase.auth().signOut();
         }).catch(function (error) {
-          window.alert("The verification email cannot be sent! Please try again with real credentials")
+          window.alert("Error! The verification email cannot be sent!");
+          firebase.auth().signOut();
         });
       })
-    firebase.auth().signOut()
+      .catch((error)=>{
+        window.alert("The verification email cannot be sent! Please try again with real credentials")
+      })
   }
 }
