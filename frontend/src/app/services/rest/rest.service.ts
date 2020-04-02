@@ -43,7 +43,7 @@ export class RestService {
       );
   }
   deleteRole(uid, role) {
-    return this.http.delete("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/roleremove",{body:{ roleAssigningUserId: uid, removingRoles: [role] }} )
+    return this.http.request('delete',"https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/roleremove",{body:{ roleAssigningUserId: uid, removingRoles: [role] }} )
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
