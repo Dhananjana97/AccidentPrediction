@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AccidenteditdialogComponent } from '../dialogs/accidenteditdialog/accidenteditdialog.component';
 import { RestService } from 'src/app/services/rest/rest.service';
 import { AreyousureComponent } from '../dialogs/areyousure/areyousure.component';
+import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'accidentdetails',
@@ -12,7 +13,11 @@ import { AreyousureComponent } from '../dialogs/areyousure/areyousure.component'
 })
 export class AccidentdetailsComponent implements OnInit {
 
-  constructor(private dialog: MatDialog, private restService: RestService) { }
+  constructor(
+    private dialog: MatDialog,
+    private RestService: RestService,
+    private SnackBar:SnackbarService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -28,14 +33,15 @@ export class AccidentdetailsComponent implements OnInit {
     page_array: null
   }
 
-  getAllAccidents(date, city, page) {
+  public getAllAccidents(date, city, page) {
+    console.log(date+city+page)
     if (!Number(new Date(date))) {
       if (date == "") { date = null }
       else { window.alert("Insert correct date input!"); return null; }
     }
     if (city == "") { city = null }
 
-    this.restService.getAllAccidents(date, city, page).subscribe(
+    this.RestService.getAllAccidents(date, city, page).subscribe(
       (success) => {
         this.accidents = success["content"];
         this.data_recieved = true;
@@ -51,22 +57,22 @@ export class AccidentdetailsComponent implements OnInit {
     )
   }
 
-  pagination(page) {
+  public pagination(page) {
     if (page <= 0) { return null }
     else if (page > this.current_state.page_tot) { return null }
     else { this.getAllAccidents(this.current_state.date, this.current_state.city, page) }
   }
 
-  applyFilter(event: Event) {
+  public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  delete(uid) {
+  public delete(uid) {
     let dialogRef = this.dialog.open(AreyousureComponent, { data: "Are you sure want to delete the accident from database?" });
     dialogRef.afterClosed().subscribe(result => {
       if (result == true) {
-        this.restService.deleteAccident(uid).subscribe(
+        this.RestService.deleteAccident(uid).subscribe(
           (success) => {
             this.getAllAccidents(this.current_state.date, this.current_state.city, this.current_state.pageNumber);
           },
@@ -82,14 +88,14 @@ export class AccidentdetailsComponent implements OnInit {
     });
   }
 
-  edit(accident_object) {
+  public edit(accident_object) {
     let new_object = this.clone(accident_object);
     let dialogRef = this.dialog.open(AccidenteditdialogComponent, { data: new_object });
     dialogRef.afterClosed().subscribe(result => {
       if (!result) { return null }
       let isFormValid = this.isFormValid(result);
       if (isFormValid != true) { window.alert(isFormValid.message); return null }
-      this.restService.editAccident(result).subscribe(
+      this.RestService.editAccident(result).subscribe(
         (success) => {
           this.getAllAccidents(this.current_state.date, this.current_state.city, this.current_state.pageNumber);
         },
@@ -101,13 +107,13 @@ export class AccidentdetailsComponent implements OnInit {
 
   }
 
-  addAccident() {
+  public addAccident() {
     let dialogRef = this.dialog.open(AccidenteditdialogComponent, { data: {} });
     dialogRef.afterClosed().subscribe(result => {
       if (!result) { return null }
       let isFormValid = this.isFormValid(result);
       if (isFormValid != true) { window.alert(isFormValid.message); return null }
-      this.restService.addAccident(result).subscribe(
+      this.RestService.addAccident(result).subscribe(
         (success) => {
           this.getAllAccidents(result.date, result.city, 1);
         },
@@ -118,7 +124,7 @@ export class AccidentdetailsComponent implements OnInit {
     });
   }
 
-  clone(accident_object) {
+  private clone(accident_object) {
     let temp_object = {};
     for (let key of Object.keys(accident_object)) {
       temp_object[key] = accident_object[key];
@@ -126,32 +132,29 @@ export class AccidentdetailsComponent implements OnInit {
     return temp_object;
   }
 
-  isFormValid(obj) {
-    if (Object.keys(obj).length != 18) {
+  private isFormValid(obj) {
+    if (Object.keys(obj).length < 15) {
       return { message: "All fields should be completed!" }
     }
     for (let prop in obj) {
-      if (obj[prop] == "") {
+      if (obj[prop] == "" && typeof obj[prop] !="boolean") {
         return { message: "Insert values for all fileds!" };
       }
     }
-    if (!Number(obj.no_of_vehicles + obj.casualty + obj.grid_ref_easting + obj.grid_ref_northing + obj.time + obj.age_of_casualty)) {
+    if (!Number(obj.no_of_vehicles + obj.casualty + obj.time + obj.age_of_casualty)) {
       return { message: "Insert correct values!" }
     }
     if (!Number(new Date(obj.date))) {
       return { message: "Invalid date value!" }
     }
-    if (typeof obj.holiday != "boolean"){
-      return { message: "Holiday value should be 'true' or 'false'" }
-    }
+
 
     return true;
   }
 
-  displayedColumns: string[] = [
+  public displayedColumns: string[] = [
     'id',
-    'reference number',
-    'grid ref easting and northing',
+    'city',
     'road surface',
     'vehicle amount',
     'date and time',
@@ -170,9 +173,6 @@ export class AccidentdetailsComponent implements OnInit {
 
 export interface Accident {
   id: Number,
-  reference_number: String,
-  grid_ref_easting: String,
-  grid_ref_northing: String,
   no_of_vehicles: Number,
   date: String,
   time: String,

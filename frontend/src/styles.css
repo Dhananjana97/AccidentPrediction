@@ -1,3 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '~firebaseui/dist/firebaseui.css';
+.snack-error {
+    background: crimson;
+}
+
+.snack-success {
+    background: lightblue;
+}

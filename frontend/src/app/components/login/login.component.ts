@@ -20,13 +20,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  public spinner = false;
   // verified = true;
   // throw new SyntaxError("Incomplete data: no name");
 
   login(form_email, form_password) {
+    this.spinner = true;
     if (form_email=="" || form_password==""){
       window.alert("Fill all fieds!");
+      this.spinner = false;
       return null;
     }
     firebase.auth().signInWithEmailAndPassword(form_email, form_password)
@@ -38,16 +40,19 @@ export class LoginComponent implements OnInit {
         catch (e) {
           window.alert(e);
           firebase.auth().signOut();
+          this.spinner = false;
           return null;
         }
         if (!current_user.emailVerified) {
           current_user.sendEmailVerification().then(function () {
             window.alert("Try to login after the email verification.The verification email has been sent!");
             firebase.auth().signOut();
+            this.spinner = false;
             return null;
           }).catch(function (error) {
             window.alert("Error! The verification email cannot be sent!");
             firebase.auth().signOut();
+            this.spinner = false;
             return null;
           });
         }
@@ -56,14 +61,17 @@ export class LoginComponent implements OnInit {
             (user_details) => {
               if (user_details["status"] == 1) {
                 this.log.setUserLogStatus(user_details);
+                this.spinner = false;
                 this.router.navigate(["home"]);
                 return null;
               }
               firebase.auth().signOut();
-            window.alert("User is not accepted by system admins yet. Try again later.");
+              this.spinner = false;
+              window.alert("User is not accepted by system admins yet. Try again later.");
           },
           (error) => {
             firebase.auth().signOut();
+            this.spinner = false;
             window.alert(error);
             this.router.navigate(["login"]);
           }
@@ -71,6 +79,7 @@ export class LoginComponent implements OnInit {
         }
       })
       .catch((error) => {
+        this.spinner = false;
         window.alert(error);
         this.router.navigate(["login"]);
       });

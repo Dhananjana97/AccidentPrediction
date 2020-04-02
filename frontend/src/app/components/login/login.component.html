@@ -1,4 +1,4 @@
-<div class="authClass">
+<div class="authClass" *ngIf="!spinner">
     <div class="icon-accident">
         <img src="./../../../assets/img/accident-4.png">
     </div>
@@ -20,4 +20,8 @@
             <a routerLink="./../register">Create an account!</a>
         </div>
     </form>
+</div>
+
+<div *ngIf="spinner" class="loader">
+    Loading...
 </div>

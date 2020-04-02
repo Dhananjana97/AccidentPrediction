@@ -40,15 +40,15 @@
             <td mat-cell *matCellDef="let element"> {{element.id}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="reference number">
-            <th mat-header-cell *matHeaderCellDef> Reference number and City </th>
-            <td mat-cell *matCellDef="let element"> {{element.reference_number}} <br> {{element.city}} </td>
+        <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef> City </th>
+            <td mat-cell *matCellDef="let element"> {{element.city}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="grid ref easting and northing">
+        <!-- <ng-container matColumnDef="grid ref easting and northing">
             <th mat-header-cell *matHeaderCellDef> Grid ref Easting and Northing </th>
             <td mat-cell *matCellDef="let element"> {{element.grid_ref_easting}} <br> {{element.grid_ref_northing}} </td>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container matColumnDef="road surface">
             <th mat-header-cell *matHeaderCellDef> Road surface </th>
