@@ -31,6 +31,9 @@ import { MaterialModule } from './customModules/material/material.module';
 import { EditprofileComponent } from './components/dialogs/editprofile/editprofile.component';
 import { AreyousureComponent } from './components/dialogs/areyousure/areyousure.component';
 import { ApproveComponent } from './components/approve/approve.component';
+import { AccidentpredictionComponent } from './components/accidentprediction/accidentprediction.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PredictionwarningComponent } from './components/dialogs/predictionwarning/predictionwarning.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,9 @@ import { ApproveComponent } from './components/approve/approve.component';
     RoleRequestDialogComponent,
     EditprofileComponent,
     AreyousureComponent,
-    ApproveComponent
+    ApproveComponent,
+    AccidentpredictionComponent,
+    PredictionwarningComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -62,6 +67,7 @@ import { ApproveComponent } from './components/approve/approve.component';
     AngularFireAuthModule,
     AppRoutingModule,
     MaterialModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
