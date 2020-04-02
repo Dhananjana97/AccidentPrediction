@@ -21,35 +21,40 @@ export class AccidentdetailsComponent implements OnInit {
   public dataSource;
   public data_recieved = false;
   public current_state = {
-    city:null,
-    pageNumber:null,
-    date:null,
-    page_tot:null,
-    page_array:null
+    city: null,
+    pageNumber: null,
+    date: null,
+    page_tot: null,
+    page_array: null
   }
 
-  getAllAccidents(date,city,page) {
-    if (date==""){date=null}
-    else if(city==""){city=null}
-    
-    this.restService.getAllAccidents(date,city,page).subscribe(
+  getAllAccidents(date, city, page) {
+    if (!Number(new Date(date))) {
+      if (date == "") { date = null }
+      else { window.alert("Insert correct date input!"); return null; }
+    }
+    if (city == "") { city = null }
+
+    this.restService.getAllAccidents(date, city, page).subscribe(
       (success) => {
         this.accidents = success["content"];
         this.data_recieved = true;
-        this.current_state = {city:city,pageNumber:page,date:date,page_tot:success["totalPages"],page_array:Array.from(Array(success["totalPages"]).keys()).map(x => ++x)}
-        console.log(this.current_state)
+        this.current_state = { city: city, pageNumber: page, date: date, page_tot: success["totalPages"], page_array: Array.from(Array(success["totalPages"]).keys()).map(x => ++x) }
+        if (date == null) { this.current_state.date = "" }
+        if (city == null) { this.current_state.city = "" }
         this.dataSource = new MatTableDataSource(this.accidents)
       },
       (error) => {
         console.log(error);
+        window.alert("Error!")
       }
     )
   }
 
-  pagination(page){
-    if (page<=0){return null}
-    else if (page>this.current_state.page_tot){return null}
-    else {this.getAllAccidents(this.current_state.date,this.current_state.city,page)}
+  pagination(page) {
+    if (page <= 0) { return null }
+    else if (page > this.current_state.page_tot) { return null }
+    else { this.getAllAccidents(this.current_state.date, this.current_state.city, page) }
   }
 
   applyFilter(event: Event) {
@@ -63,15 +68,16 @@ export class AccidentdetailsComponent implements OnInit {
       if (result == true) {
         this.restService.deleteAccident(uid).subscribe(
           (success) => {
-            this.getAllAccidents(this.current_state.date,this.current_state.city,this.current_state.pageNumber);
+            this.getAllAccidents(this.current_state.date, this.current_state.city, this.current_state.pageNumber);
           },
           (error) => {
             console.log(error);
+            window.alert("The accident couldnt be deleted!");
           }
         )
       }
       else if (result == false) {
-
+        return null;
       }
     });
   }
@@ -80,30 +86,36 @@ export class AccidentdetailsComponent implements OnInit {
     let new_object = this.clone(accident_object);
     let dialogRef = this.dialog.open(AccidenteditdialogComponent, { data: new_object });
     dialogRef.afterClosed().subscribe(result => {
+      if (!result) { return null }
+      let isFormValid = this.isFormValid(result);
+      if (isFormValid != true) { window.alert(isFormValid.message); return null }
       this.restService.editAccident(result).subscribe(
         (success) => {
-          this.getAllAccidents(this.current_state.date,this.current_state.city,this.current_state.pageNumber);
+          this.getAllAccidents(this.current_state.date, this.current_state.city, this.current_state.pageNumber);
         },
         (error) => {
           console.log(error);
         }
       )
-      });
+    });
 
   }
 
   addAccident() {
     let dialogRef = this.dialog.open(AccidenteditdialogComponent, { data: {} });
     dialogRef.afterClosed().subscribe(result => {
+      if (!result) { return null }
+      let isFormValid = this.isFormValid(result);
+      if (isFormValid != true) { window.alert(isFormValid.message); return null }
       this.restService.addAccident(result).subscribe(
         (success) => {
-          this.getAllAccidents(result.date,result.city,1);
+          this.getAllAccidents(result.date, result.city, 1);
         },
         (error) => {
           console.log(error);
         }
       )
-      });
+    });
   }
 
   clone(accident_object) {
@@ -111,8 +123,29 @@ export class AccidentdetailsComponent implements OnInit {
     for (let key of Object.keys(accident_object)) {
       temp_object[key] = accident_object[key];
     }
-    console.log(temp_object);
     return temp_object;
+  }
+
+  isFormValid(obj) {
+    if (Object.keys(obj).length != 18) {
+      return { message: "All fields should be completed!" }
+    }
+    for (let prop in obj) {
+      if (obj[prop] == "") {
+        return { message: "Insert values for all fileds!" };
+      }
+    }
+    if (!Number(obj.no_of_vehicles + obj.casualty + obj.grid_ref_easting + obj.grid_ref_northing + obj.time + obj.age_of_casualty)) {
+      return { message: "Insert correct values!" }
+    }
+    if (!Number(new Date(obj.date))) {
+      return { message: "Invalid date value!" }
+    }
+    if (typeof obj.holiday != "boolean"){
+      return { message: "Holiday value should be 'true' or 'false'" }
+    }
+
+    return true;
   }
 
   displayedColumns: string[] = [
@@ -153,24 +186,6 @@ export interface Accident {
   age_of_casualty: String,
   vehicleType: String,
   casualty: String,
-  city:String,
-  holiday:boolean
+  city: String,
+  holiday: boolean
 };
-   // = [{id: 44,
-  //   reference_number: "0BD0401",
-  //   grid_ref_easting: "424090",
-  //   grid_ref_northing: "428088",
-  //   no_of_vehicles: 3,
-  //   date: "2013-11-13 00:00:00",
-  //   time: "1018",
-  //   _1st_road_class: "Motorway",
-  //   road_surface: "Dry",
-  //   lightning_conditions: "Daylight: street lights present",
-  //   weather: "Weather Conditions",
-  //   casualty: "1",
-  //   _class: "Driver",
-  //   sex_of_casualty: "Female",
-  //   age_of_casualty: "41",
-  //   vehicle_type: "Car",
-  //   causalty_severity: "Slight"
-  //   }];

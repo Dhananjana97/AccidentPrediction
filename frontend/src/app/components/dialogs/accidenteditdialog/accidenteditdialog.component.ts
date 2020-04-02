@@ -14,5 +14,4 @@ export class AccidenteditdialogComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

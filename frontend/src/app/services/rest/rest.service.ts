@@ -111,30 +111,6 @@ export class RestService {
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
     }
-    return throwError(
-      'Something bad happened; please try again later.');
+    return throwError(error.error.message);
   };
-
-
-  getUsecrData() {
-    var k = [
-      {
-        "userId": "JKZRNa2I1SU7tUvcqAPET1J0enJ3",
-        "name": "wddwd@uuuuu.uu",
-        "emailAddress": "wddwd@uuuuu.uu",
-        "rank": "Rank1",
-        "status": 0,
-        "roles": [{ roleName: "Admin", roleId: 1 }, { roleName: "Staff", roleId: 2 }, { roleName: "Guest", roleId: 3 }]
-      },
-      {
-        "userId": "JKZRNa2I1SU7tUvcqAPET1J0enJ3",
-        "name": "chalieeee@uuuuu.uu",
-        "emailAddress": "sdsd@uuuuu.uu",
-        "rank": "Rank1",
-        "status": 0,
-        "roles": [{ roleName: "Admin", roleId: 1 }, { roleName: "Guest", roleId: 3 }]
-      }
-    ]
-    return k;
-  }
 }

@@ -25,6 +25,10 @@ export class LoginComponent implements OnInit {
   // throw new SyntaxError("Incomplete data: no name");
 
   login(form_email, form_password) {
+    if (form_email=="" || form_password==""){
+      window.alert("Fill all fieds!");
+      return null;
+    }
     firebase.auth().signInWithEmailAndPassword(form_email, form_password)
       .then(() => {
         var current_user;
@@ -47,14 +51,15 @@ export class LoginComponent implements OnInit {
             return null;
           });
         }
-        this.rest.requestUserDetails().subscribe(
-          (user_details) => {
-            if (user_details["status"] == 1) {
-              this.log.setUserLogStatus(user_details);
-              this.router.navigate(["home"]);
-              return null;
-            }
-            firebase.auth().signOut();
+        else{
+          this.rest.requestUserDetails().subscribe(
+            (user_details) => {
+              if (user_details["status"] == 1) {
+                this.log.setUserLogStatus(user_details);
+                this.router.navigate(["home"]);
+                return null;
+              }
+              firebase.auth().signOut();
             window.alert("User is not accepted by system admins yet. Try again later.");
           },
           (error) => {
@@ -62,15 +67,16 @@ export class LoginComponent implements OnInit {
             window.alert(error);
             this.router.navigate(["login"]);
           }
-        );
+          );
+        }
       })
       .catch((error) => {
         window.alert(error);
         this.router.navigate(["login"]);
       });
-  }
-
-  sendVerification(form_email, form_password) {
+    }
+    
+    sendVerification(form_email, form_password) {
     firebase.auth().signInWithEmailAndPassword(form_email, form_password)
       .then(() => {
         firebase.auth().currentUser.sendEmailVerification().then(function () {
