@@ -11,12 +11,13 @@ import java.util.List;
 
 public interface AccidentDataDao extends JpaRepository<AccidentData, Integer>{
 
-    @Query("select acc from AccidentData acc where date= ?1 and city= ?2")
+    @Query("select acc from AccidentData acc where acc.date like ?1% and acc.city like %?2%")
     public Page<AccidentData> findByDateNCity(String date, String city, Pageable pageable);
 
     @Query("select acc from AccidentData acc where date like ?1%")
     public Page<AccidentData> findByDate(String date,Pageable pageable);
 
+    @Query("select acc from AccidentData acc where city like %?1%")
     public Page<AccidentData> findByCity(String city, Pageable pageable);
 
 
