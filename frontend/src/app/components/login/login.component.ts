@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { RestService } from 'src/app/services/rest/rest.service';
 import { throwError } from 'rxjs';
+import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 
 
 
@@ -16,17 +17,26 @@ import { throwError } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public log: LogService, public auth: AngularFireAuth, public router: Router, public ngZone: NgZone, private rest: RestService) { }
+  constructor(
+    public log: LogService, 
+    public auth: AngularFireAuth, 
+    public router: Router, 
+    public ngZone: NgZone, 
+    private rest: RestService,
+    private snackBar:SnackbarService
+    ) { }
 
   ngOnInit(): void {
   }
-
+  public spinner = false;
   // verified = true;
   // throw new SyntaxError("Incomplete data: no name");
 
   login(form_email, form_password) {
+    this.spinner = true;
     if (form_email=="" || form_password==""){
-      window.alert("Fill all fieds!");
+      this.spinner = false;
+      this.snackBar.openSnackBar("Plaease fill all the fields!","error");
       return null;
     }
     firebase.auth().signInWithEmailAndPassword(form_email, form_password)
@@ -38,16 +48,20 @@ export class LoginComponent implements OnInit {
         catch (e) {
           window.alert(e);
           firebase.auth().signOut();
+          this.spinner = false;
+          this.snackBar.openSnackBar("Error in authentication!","error");
           return null;
         }
         if (!current_user.emailVerified) {
           current_user.sendEmailVerification().then(function () {
-            window.alert("Try to login after the email verification.The verification email has been sent!");
             firebase.auth().signOut();
+            this.spinner = false;
+            this.snackBar.openSnackBar("Try to login after the email verification.The verification email has been sent!","error");
             return null;
           }).catch(function (error) {
-            window.alert("Error! The verification email cannot be sent!");
             firebase.auth().signOut();
+            this.spinner = false;
+            this.snackBar.openSnackBar("Error! The verification email cannot be sent!","error");
             return null;
           });
         }
@@ -56,22 +70,26 @@ export class LoginComponent implements OnInit {
             (user_details) => {
               if (user_details["status"] == 1) {
                 this.log.setUserLogStatus(user_details);
+                this.spinner = false;
                 this.router.navigate(["home"]);
                 return null;
               }
               firebase.auth().signOut();
-            window.alert("User is not accepted by system admins yet. Try again later.");
+              this.spinner = false;
+              this.snackBar.openSnackBar("User is not accepted by system admins yet. Try again later.","error");
           },
           (error) => {
             firebase.auth().signOut();
-            window.alert(error);
+            this.spinner = false;
+            this.snackBar.openSnackBar("Error in authentication. Try again later.","error");
             this.router.navigate(["login"]);
           }
           );
         }
       })
       .catch((error) => {
-        window.alert(error);
+        this.spinner = false;
+        this.snackBar.openSnackBar("Invalid credentials. Try again.","error");
         this.router.navigate(["login"]);
       });
     }
@@ -80,15 +98,15 @@ export class LoginComponent implements OnInit {
     firebase.auth().signInWithEmailAndPassword(form_email, form_password)
       .then(() => {
         firebase.auth().currentUser.sendEmailVerification().then(function () {
-          window.alert("Verify your email.The verification email has been sent!");
+          this.snackBar.openSnackBar("Verify your email.The verification email has been sent!","error");
           firebase.auth().signOut();
         }).catch(function (error) {
-          window.alert("Error! The verification email cannot be sent!");
+          this.snackBar.openSnackBar("Error! The verification email cannot be sent!","error");
           firebase.auth().signOut();
         });
       })
       .catch((error)=>{
-        window.alert("The verification email cannot be sent! Please try again with real credentials")
+        this.snackBar.openSnackBar("The verification email cannot be sent! Please try again with real credentials","error");
       })
   }
 }

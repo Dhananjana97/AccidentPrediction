@@ -3,7 +3,6 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest, HttpParams } f
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { User } from './../logService/log.service';
-import { Accident } from 'src/app/components/accidentdetails/accidentdetails.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +11,17 @@ export class RestService {
 
   constructor(private http: HttpClient) { }
 
+  private host_url = "https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/";
 
   sendFirstUser(data): Observable<any> {
-    return this.http.post("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/usersignup", data)
+    return this.http.post(this.host_url +"user/usersignup", data)
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
       );
   }
   requestUserDetails() {
-    return this.http.get("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/getmebyid")
+    return this.http.get(this.host_url+"user/getmebyid")
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
@@ -29,28 +29,28 @@ export class RestService {
   }
   changeUserProfile(name, rank) {
     console.log("bla bla bla")
-    return this.http.post("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/updateuser", { name: name, rank: rank })
+    return this.http.post(this.host_url+"user/updateuser", { name: name, rank: rank })
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
       );
   }
   assignRole(uid, role) {
-    return this.http.post("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/roleassign", { roleAssigningUserId: uid, assigningRoleName: [role] })
+    return this.http.post(this.host_url+"user/roleassign", { roleAssigningUserId: uid, assigningRoleName: [role] })
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
       );
   }
   deleteRole(uid, role) {
-    return this.http.delete("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/roleremove",{body:{ roleAssigningUserId: uid, removingRoles: [role] }} )
+    return this.http.request('delete',this.host_url+"user/roleremove",{body:{ roleAssigningUserId: uid, removingRoles: [role] }} )
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
       );
   }
   getAllUserData():Observable<User[]> {
-    return this.http.get<User[]>("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/getallusers/1")
+    return this.http.get<User[]>(this.host_url+"user/getallusers/1")
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
@@ -58,7 +58,7 @@ export class RestService {
   }
 
   getAllAccidents(date,city,page){
-    return this.http.post("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/accident/getaccidentsbyfilter",{date:date,city:city,pageNumber:page})
+    return this.http.post(this.host_url+"accident/getaccidentsbyfilter",{date:date,city:city,pageNumber:page})
     .pipe(
       retry(3), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
@@ -66,7 +66,7 @@ export class RestService {
   }
 
   getAllNonApprovedData():Observable<User[]>{
-    return this.http.get<User[]>("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/getallusers/0")
+    return this.http.get<User[]>(this.host_url+"user/getallusers/0")
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
@@ -74,7 +74,7 @@ export class RestService {
   }
 
   approveuser(uid,email){
-    return this.http.put("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/user/approveUser",{userId:uid,emailAddress:email})
+    return this.http.put(this.host_url+"user/approveUser",{userId:uid,emailAddress:email})
     .pipe(
       retry(3), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
@@ -82,21 +82,21 @@ export class RestService {
   }
   addAccident(data){
     console.log(data);
-    return this.http.post("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/accident/insertaccident",data)
+    return this.http.post(this.host_url+"accident/insertaccident",data)
     .pipe(
       retry(3), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
     );
   }
   editAccident(data){
-    return this.http.put("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/accident/updateaccident",data)
+    return this.http.put(this.host_url+"accident/updateaccident",data)
     .pipe(
       retry(3), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error
     );
   }
   deleteAccident(uid){
-    return this.http.delete("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/accident/deleteaccident/"+uid)
+    return this.http.delete(this.host_url+"accident/deleteaccident/"+uid)
     .pipe(
       retry(3), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error

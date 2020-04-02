@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { RestService } from 'src/app/services/rest/rest.service';
 import { Ranks } from './../../systemData/systenRoles';
+import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +12,11 @@ import { Ranks } from './../../systemData/systenRoles';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private router: Router, private rest: RestService) { }
+  constructor(
+    private router: Router, 
+    private rest: RestService,
+    private snackBar:SnackbarService
+    ) { }
 
   ngOnInit(): void {
   }
@@ -40,24 +45,23 @@ export class SignupComponent implements OnInit {
             firebase.auth().currentUser.sendEmailVerification()
               .then(() => {
                 firebase.auth().signOut();
-                window.alert("Dear " + data.name + "! Your request for the accident prediction systm will be accepted by administration soon! And try to verify your email!");
+                this.snackBar.openSnackBar("Dear " + data.name + "! Your request for the accident prediction systm will be accepted by administration soon! And try to verify your email!", "error");
                 this.router.navigate(["login"]);
               })
               .catch(function (error) {
-                window.alert("Rgistered successfully! but The verification email cannot be sent! Try again!");
+                this.snackBar.openSnackBar("Rgistered successfully! but The verification email cannot be sent! Try again!", "error");
                 firebase.auth().currentUser.delete()
                 this.router.navigate(["login"]);
               });
           },
           (error) => {
-            window.alert("Request for the Accident Analysing System is not completed! Register again!");
-            console.error("Something went wrong when user registering the backend!  " + error);
+            this.snackBar.openSnackBar("Request for the Accident Analysing System is not completed! Register again!", "error");
             this.router.navigate(["login"]);
           }
         );
       })
       .catch((error) => {
-        window.alert(error.message);
+        this.snackBar.openSnackBar("Something went wrog. Try again!", "error");
       })
   }
 

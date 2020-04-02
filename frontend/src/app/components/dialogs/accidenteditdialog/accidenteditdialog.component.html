@@ -6,26 +6,18 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
-            <div class="inputBox ">
-                <div class="inputText">Grid ref Easting</div>
-                <input [(ngModel)]="data.grid_ref_easting" type="text" name="grid-east" class="input" value={{data.grid_ref_easting}}>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <div class="inputBox">
-                <div class="inputText">Grid ref Northing</div>
-                <input [(ngModel)]="data.grid_ref_northing" type="text" name="grid-north" class="input" value={{data.grid_ref_northing}}>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">Road surface</div>
                 <input [(ngModel)]="data.road_surface" type="text" name="road-surface" class="input" value={{data.road_surface}}>
+            </div>
+        </div> -->
+        <div class="col-sm-6">
+            <div class="inputBox ">
+                <div class="inputText">Road surface</div>
+                <select [(ngModel)]="data.road_surface" name="road-surface" class="input" value={{data.road_surface}}>
+                    <option *ngFor="let surface of road_surface">{{surface}}</option>
+                </select>
             </div>
         </div>
 
@@ -60,10 +52,21 @@
             </div>
         </div>
 
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">LIghtning condition</div>
                 <input [(ngModel)]="data.lightning_conditions" type="text" name="linghtning" class="input" value={{data.lightning_conditions}}>
+            </div>
+        </div> -->
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="inputBox ">
+                <div class="inputText">Lightning condition</div>
+                <select [(ngModel)]="data.lightning_conditions" name="linghtning" class="input" value={{data.lightning_conditions}}>
+                    <option *ngFor="let light of lightning_conditions">{{light}}</option>
+                </select>
             </div>
         </div>
     </div>
@@ -74,14 +77,24 @@
                 <input [(ngModel)]="data.weather" type="text" name="weather" class="input" value={{data.weather}}>
             </div>
         </div>
-
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="inputBox ">
+                <div class="inputText">Vehicle Type</div>
+                <select [(ngModel)]="data.vehicleType" name="vehicle-type" class="input" value={{data.vehicleType}}>
+                    <option *ngFor="let vehicle of vehicle_type">{{vehicle}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- 
         <div class="col-sm-12">
             <div class="inputBox">
                 <div class="inputText">Vehicle type</div>
                 <input [(ngModel)]="data.vehicleType" type="text" name="vehicle-type" class="input" value={{data.vehicleType}}>
             </div>
-        </div>
-    </div>
+        </div> -->
     <div class="row">
         <div class="col-sm-6">
             <div class="inputBox">
@@ -89,33 +102,51 @@
                 <input [(ngModel)]="data.casualty" type="text" name="class" class="input" value={{data.casualty}}>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="inputBox">
-                <div class="inputText"> Reference Number</div>
-                <input [(ngModel)]="data.reference_number" type="text" name="class" class="input" value={{data.reference_number}}>
-            </div>
-        </div>
     </div>
     <div class="row">
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText"> Casualty class</div>
                 <input [(ngModel)]="data._class" type="text" name="class" class="input" value={{data._class}}>
             </div>
+        </div> -->
+        <div class="col-sm-6">
+            <div class="inputBox ">
+                <div class="inputText">Casualty class</div>
+                <select [(ngModel)]="data._class" name="class" class="input" value={{data._class}}>
+                    <option *ngFor="let class of classes">{{class}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="inputBox ">
+                <div class="inputText">Casualty severity</div>
+                <select [(ngModel)]="data.casualty_severity" name="severity" class="input" value={{data.casualty_severity}}>
+                    <option *ngFor="let severe of casualty_severity">{{severe}}</option>
+                </select>
+            </div>
         </div>
 
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">Casualty severity</div>
                 <input [(ngModel)]="data.casualty_severity" type="text" name="severity" class="input" value={{data.casualty_severity}}>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="row">
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">Sex</div>
                 <input [(ngModel)]="data.sex_of_casualty" type="text" name="sex" class="input" value={{data.sex_of_casualty}}>
+            </div>
+        </div> -->
+        <div class="col-sm-6">
+            <div class="inputBox ">
+                <div class="inputText">Casualty Sex</div>
+                <select [(ngModel)]="data.sex_of_casualty" name="sex" class="input" value={{data.sex_of_casualty}}>
+                    <option *ngFor="let sex of sex_of_casualty">{{sex}}</option>
+                </select>
             </div>
         </div>
 
@@ -133,10 +164,18 @@
                 <input [(ngModel)]="data.city" type="text" name="class" class="input" value={{data.city}}>
             </div>
         </div>
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText"> Holiday</div>
                 <input [(ngModel)]="data.holiday" type="text" name="class" class="input" value={{data.holiday}}>
+            </div>
+        </div> -->
+        <div class="col-sm-6">
+            <div class="inputBox ">
+                <div class="inputText">Holiday</div>
+                <select [(ngModel)]="data.holiday" name="holiday" class="input" value={{data.holiday}}>
+                    <option *ngFor="let holiday of holiday_bool">{{holiday}}</option>
+                </select>
             </div>
         </div>
     </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService } from 'src/app/services/rest/rest.service';
+import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-approve',
@@ -8,7 +9,10 @@ import { RestService } from 'src/app/services/rest/rest.service';
 })
 export class ApproveComponent implements OnInit {
 
-  constructor(private restService: RestService) { }
+  constructor(
+    private restService: RestService,
+    private snackbar:SnackbarService
+    ) { }
 
   ngOnInit(): void {
     this.setAllNonApprovedusers();
@@ -21,7 +25,7 @@ export class ApproveComponent implements OnInit {
         this.non_approved_users =  success;
       },
       (error)=>{
-        console.log(error);
+        this.snackbar.openSnackBar("Something went wrong. Try again!","error");
       }
     )
   }
@@ -29,11 +33,11 @@ export class ApproveComponent implements OnInit {
   approveUser(uid,email){
     this.restService.approveuser(uid,email).subscribe(
       (success)=>{
-        window.alert("suxex");
+        this.snackbar.openSnackBar("User approved successfully!","success");
         this.setAllNonApprovedusers();
       },
       (error)=>{
-        console.log(error);
+        this.snackbar.openSnackBar("Something went wrong. Try again!","error");
       }
     )
   }
