@@ -28,6 +28,8 @@ public interface UserServices {
 
     int assignRolesToUser(RoleAssignment roleAssignment) throws SQLException;
 
+    int disableUser(String userId);
+
 
     int removeRolesFromUser(RoleAssignment roleAssignment) throws SQLException;
 

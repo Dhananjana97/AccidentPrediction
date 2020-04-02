@@ -9,8 +9,10 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,16 +94,29 @@ public class UserServicesImpl implements UserServices {
     @Override
     public int removeRolesFromUser(RoleAssignment roleAssignment) throws SQLException, UnsupportedOperationException {
         int success = 0;
-        if (roleAssignment.getRemovingRoles().contains("Guest")) {
-            throw new UnsupportedOperationException("Guest Previleges can't remove");
-        } else {
-            for (String roleName : roleAssignment.getRemovingRoles()) {
-                success = userJdbcDao.saveRoleRemoval(roleAssignment.getRoleAssigningUserId(), roleName);
-                if (success == 0) {
-                    throw new SQLException("Role Removal Failed");
+
+        for (String roleName : roleAssignment.getRemovingRoles()) {
+            success = userJdbcDao.saveRoleRemoval(roleAssignment.getRoleAssigningUserId(), roleName);
+            if (success == 0) {
+                throw new SQLException("Role Removal Failed");
+            } else {
+                if (Objects.equals(roleName, "Guest")) {
+                    try {
+                        disableUser(roleAssignment.getRoleAssigningUserId());
+                    }catch (Exception e){
+                        throw new SQLException("User Disable Failure");
+                    }
+
                 }
             }
         }
+
+
+        return success;
+    }
+
+    public int disableUser(String userId) {
+        int success = userDao.disableUser(userId);
 
         return success;
     }
