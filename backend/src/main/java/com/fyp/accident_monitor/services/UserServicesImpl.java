@@ -4,20 +4,20 @@ import com.fyp.accident_monitor.Dao.RoleDao;
 import com.fyp.accident_monitor.Dao.UserDao;
 import com.fyp.accident_monitor.Dao.UserJdbcDao;
 import com.fyp.accident_monitor.Dao.UserRoleDao;
-import com.fyp.accident_monitor.Entities.Response;
-import com.fyp.accident_monitor.Entities.Role;
-import com.fyp.accident_monitor.Entities.RoleAssignment;
-import com.fyp.accident_monitor.Entities.User;
+import com.fyp.accident_monitor.Entities.*;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -37,6 +37,9 @@ public class UserServicesImpl implements UserServices {
     private UserRoleDao userRoleDao;
 
     @Autowired
+    private SecurityServices securityServices;
+
+    @Autowired
     private RoleDao roleDao;
 
     @Autowired
@@ -51,8 +54,11 @@ public class UserServicesImpl implements UserServices {
 
     @Transactional
     @Override
-    public List<User> getAllUsersApproved(int status) throws NoSuchElementException {
-        return userDao.findBystatus(status);
+    public List<User> getAllUsersApproved(int status, HttpServletRequest request) throws NoSuchElementException {
+        List<User> approvedUsers = userDao.findBystatus(status);
+        JwtPayload loggedAdminJwt = securityServices.getJwtPayload(request);
+        approvedUsers.removeIf(user -> Objects.equals(user.getUserId(), loggedAdminJwt.getUser_id()));
+        return approvedUsers;
     }
 
 
@@ -88,16 +94,29 @@ public class UserServicesImpl implements UserServices {
     @Override
     public int removeRolesFromUser(RoleAssignment roleAssignment) throws SQLException, UnsupportedOperationException {
         int success = 0;
-        if (roleAssignment.getRemovingRoles().contains("Guest")) {
-            throw new UnsupportedOperationException("Guest Previleges can't remove");
-        } else {
-            for (String roleName : roleAssignment.getRemovingRoles()) {
-                success = userJdbcDao.saveRoleRemoval(roleAssignment.getRoleAssigningUserId(), roleName);
-                if (success == 0) {
-                    throw new SQLException("Role Removal Failed");
+
+        for (String roleName : roleAssignment.getRemovingRoles()) {
+            success = userJdbcDao.saveRoleRemoval(roleAssignment.getRoleAssigningUserId(), roleName);
+            if (success == 0) {
+                throw new SQLException("Role Removal Failed");
+            } else {
+                if (Objects.equals(roleName, "Guest")) {
+                    try {
+                        disableUser(roleAssignment.getRoleAssigningUserId());
+                    }catch (Exception e){
+                        throw new SQLException("User Disable Failure");
+                    }
+
                 }
             }
         }
+
+
+        return success;
+    }
+
+    public int disableUser(String userId) {
+        int success = userDao.disableUser(userId);
 
         return success;
     }

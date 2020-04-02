@@ -28,6 +28,7 @@ export class AccidentdetailsComponent implements OnInit {
     page_array: null
   }
 
+<<<<<<< HEAD
   getAllAccidents(date, city, page) {
     if (!Number(new Date(date))) {
       if (date == "") { date = null }
@@ -36,6 +37,13 @@ export class AccidentdetailsComponent implements OnInit {
     if (city == "") { city = null }
 
     this.restService.getAllAccidents(date, city, page).subscribe(
+=======
+  getAllAccidents(date,city,page) {
+    if (date==""){date=null}
+    else if(city==""){city=null}
+
+    this.restService.getAllAccidents(date,city,page).subscribe(
+>>>>>>> 7ea50b90cbbfbe2fd403781147a20e95b76ef06f
       (success) => {
         this.accidents = success["content"];
         this.data_recieved = true;
@@ -189,3 +197,24 @@ export interface Accident {
   city: String,
   holiday: boolean
 };
+<<<<<<< HEAD
+=======
+   // = [{id: 44,
+  //   reference_number: "0BD0401",
+  //   grid_ref_easting: "424090",
+  //   grid_ref_northing: "428088",
+  //   no_of_vehicles: 3,
+  //   date: "2013-11-13 00:00:00",
+  //   time: "1018",
+  //   _1st_road_class: "Motorway",
+  //   road_surface: "Dry",
+  //   lightning_conditions: "Daylight: street lights present",
+  //   weather: "Weather Conditions",
+  //   casualty: "1",
+  //   _class: "Driver",
+  //   sex_of_casualty: "Female",
+  //   age_of_casualty: "41",
+  //   vehicle_type: "Car",
+  //   causalty_severity: "Slight"
+  //   }];
+>>>>>>> 7ea50b90cbbfbe2fd403781147a20e95b76ef06f

@@ -2,6 +2,7 @@ package com.fyp.accident_monitor.controller;
 
 import java.util.NoSuchElementException;
 
+import com.fyp.accident_monitor.Entities.AccidentFilter;
 import com.fyp.accident_monitor.services.SecurityServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -68,12 +69,12 @@ public class AccidentDataController {
 
     }
 
-    @RequestMapping(value = "/getaccidentsbyfilter/{pagenumber}", method = RequestMethod.POST)
-    public Page<AccidentData> getAllAccidentsByDateNType(@PathVariable(name = "pagenumber") int pagenumber,@RequestBody AccidentData accidentDataReq, HttpServletRequest request) throws NoSuchElementException, Exception {
+    @RequestMapping(value = "/getaccidentsbyfilter", method = RequestMethod.POST)
+    public Page<AccidentData> getAllAccidentsByDateNType(@RequestBody AccidentFilter accidentDataReq, HttpServletRequest request) throws NoSuchElementException, Exception {
         String authorizedPrivCode = "ACCIDENT.VIEW";
         Page<AccidentData> accidentData = null;
         if (securityServices.checkAuthorization(request, authorizedPrivCode)) {
-            accidentData = accidentDataService.getAccidentsByDateNType(accidentDataReq,pagenumber);
+            accidentData = accidentDataService.getAccidentsByDateNType(accidentDataReq);
         }
         return accidentData;
 
