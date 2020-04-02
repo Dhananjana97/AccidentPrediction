@@ -8,7 +8,7 @@ import { AccidentdetailsComponent } from './components/accidentdetails/accidentd
 import { HomeComponent } from './components/home/home.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ApproveComponent } from './components/approve/approve.component';
-
+import {AccidentpredictionComponent} from "./components/accidentprediction/accidentprediction.component";
 
 
 
@@ -41,6 +41,11 @@ export const appRoutes = [
             {
                 path: priviledges.Guest[1].url_name,
                 component: UserprofileComponent,
+                canActivate: [GuestGuard]
+            },
+            {
+                path: priviledges.Guest[2].url_name,
+                component: AccidentpredictionComponent,
                 canActivate: [GuestGuard]
             },
             {

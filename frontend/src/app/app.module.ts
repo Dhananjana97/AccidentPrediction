@@ -32,7 +32,10 @@ import { EditprofileComponent } from './components/dialogs/editprofile/editprofi
 import { AreyousureComponent } from './components/dialogs/areyousure/areyousure.component';
 import { ApproveComponent } from './components/approve/approve.component';
 
-
+import { AccidentpredictionComponent } from './components/accidentprediction/accidentprediction.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PredictionwarningComponent } from './components/dialogs/predictionwarning/predictionwarning.component';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,9 @@ import { ApproveComponent } from './components/approve/approve.component';
     RoleRequestDialogComponent,
     EditprofileComponent,
     AreyousureComponent,
-    ApproveComponent
+    ApproveComponent,
+    AccidentpredictionComponent,
+    PredictionwarningComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -64,6 +69,8 @@ import { ApproveComponent } from './components/approve/approve.component';
     AngularFireAuthModule,
     AppRoutingModule,
     MaterialModule,
+    MatChipsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

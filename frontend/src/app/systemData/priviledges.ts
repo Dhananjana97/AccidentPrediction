@@ -28,6 +28,11 @@ export const priviledges = {
       url_name: "profile",
       web_name: "User Profile",
       icon_class: "fa fa-user"
+    },
+    {
+      url_name : "accidentprediction",
+      web_name : "Accident Prediction",
+      icon_class : "fa fa-bar-chart"
     }
   ]
 };

@@ -1,10 +1,20 @@
-<div class="card text-center">
-    <div class="card-header">
-        {{getUserInfo("name")}}
-    </div>
-    <div class="card-body">
-        <h5 *ngFor="let role of getUserInfo('roles')" class="card-title">{{role}} role</h5>
-        <h5 class="card-title">{{getUserInfo("email")}}</h5>
-        <p class="card-text">{{getUserInfo("rank")}}</p>
-    </div>
+<div style="padding: 10% 10% 10% 10%">
+
+
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{getUserInfo("name")}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-chip-list aria-label="Fish selection" style="margin-bottom: 10px;">
+                <div color="primary" selected *ngFor="let role of getUserInfo('roles')" class="chip">{{role}}
+                    role</div>
+
+            </mat-chip-list>
+            <h4 class="card-title">{{getUserInfo("email")}}</h4>
+            <p class="card-text">{{getUserInfo("rank")}}</p>
+        </mat-card-content>
+    </mat-card>
+
 </div>

@@ -103,6 +103,10 @@ export class RestService {
     );
   }
 
+  getAccidentPrediction(data){
+    return this.http.post("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/live/accidentprediction", data);
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);

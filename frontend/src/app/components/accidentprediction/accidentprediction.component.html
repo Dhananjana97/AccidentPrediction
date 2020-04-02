@@ -1,0 +1,47 @@
+<div class="example-container" style="background-color: white;padding: 10px 10px 10px 10px;">
+    <form [formGroup]="prediction_form" (ngSubmit)="getPredictions()">
+        <mat-form-field appearance="fill" class="form-item">
+            <mat-label>City</mat-label>
+            <mat-select formControlName="city" require>
+                <mat-option value="{{w}}" *ngFor="let w of cities">{{w}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-item">
+            <mat-label>Road Surface</mat-label>
+            <mat-select formControlName="road">
+                <mat-option value={{w}} *ngFor="let w of road">{{w}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-item">
+            <mat-label>Weather Conditions</mat-label>
+            <mat-select formControlName="weather">
+                <mat-option value="{{w}}" *ngFor="let w of weather">{{w}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-item">
+            <mat-label>Lighting Conditions</mat-label>
+            <mat-select formControlName="light">
+                <mat-option value="{{w}}" *ngFor="let w of light">{{w}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="form-item">
+            <mat-label>Holiday</mat-label>
+            <mat-select formControlName="holiday">
+                <mat-option value="True">True</mat-option>
+                <mat-option value="False">False</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <input type="submit" class="btn btn-primary btn-lg btn-login" value="Predict" >
+    </form>
+</div>
+
+
+<div class="result-data">
+    <p class="res-number">{{predicted_data}}</p>
+    <h1>Accidents Predicted</h1>
+</div>
