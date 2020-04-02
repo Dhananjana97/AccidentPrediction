@@ -31,7 +31,7 @@ export class AccidentdetailsComponent implements OnInit {
   getAllAccidents(date,city,page) {
     if (date==""){date=null}
     else if(city==""){city=null}
-    
+
     this.restService.getAllAccidents(date,city,page).subscribe(
       (success) => {
         this.accidents = success["content"];

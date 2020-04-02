@@ -44,7 +44,7 @@ public class UserController {
         List<User> retUsers = null;
         String authorizedPrivCode = "VIEW.ANY.USER.DETAILS";
         if (securityServices.checkAuthorization(request, authorizedPrivCode)) {
-            retUsers = userServices.getAllUsersApproved(status);
+            retUsers = userServices.getAllUsersApproved(status,request);
         }
         return retUsers;
     }

@@ -3,6 +3,7 @@ package com.fyp.accident_monitor.services;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import com.fyp.accident_monitor.Entities.AccidentFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -54,9 +55,9 @@ public class AccidentDataServiceImpl implements AccidentDataService {
     }
 
     @Override
-    public Page<AccidentData> getAccidentsByDateNType(AccidentData accidentData, int pageNumber) {
+    public Page<AccidentData> getAccidentsByDateNType(AccidentFilter accidentData) {
         int pageSize = 20;
-        Pageable page = PageRequest.of(pageNumber, pageSize);
+        Pageable page = PageRequest.of(accidentData.getPageNumber()-1, pageSize);
         Page<AccidentData> result=null;
         if (accidentData.getDate() != null && accidentData.getCity() == null) {
             result=accidentDataDao.findByDate(accidentData.getDate(), page);
