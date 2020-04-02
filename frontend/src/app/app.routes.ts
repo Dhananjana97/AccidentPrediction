@@ -1,5 +1,4 @@
 import { LoginComponent } from "./components/login/login.component";
-import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { priviledges } from './systemData/priviledges';
 import { ManagerolesComponent } from './components/manageroles/manageroles.component';
 import { UserprofileComponent } from './components/userprofile/userprofile.component';
@@ -33,18 +32,18 @@ export const appRoutes = [
         component:HomeComponent,
         canActivate:[AuthGuard],
         children:[
+            // {
+            //     path: priviledges.Guest[0].url_name,
+            //     component: DashboardComponent,
+            //     canActivate: [GuestGuard]
+            // },
             {
                 path: priviledges.Guest[0].url_name,
-                component: DashboardComponent,
-                canActivate: [GuestGuard]
-            },
-            {
-                path: priviledges.Guest[1].url_name,
                 component: UserprofileComponent,
                 canActivate: [GuestGuard]
             },
             {
-                path: priviledges.Guest[2].url_name,
+                path: priviledges.Guest[1].url_name,
                 component: AccidentpredictionComponent,
                 canActivate: [GuestGuard]
             },

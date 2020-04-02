@@ -19,11 +19,11 @@ export const priviledges = {
     }
   ],
   Guest: [
-    {
-      url_name: "dashboard",
-      web_name: "Dashboard",
-      icon_class: "fa fa-dashboard"
-    },
+    // {
+    //   url_name: "dashboard",
+    //   web_name: "Dashboard",
+    //   icon_class: "fa fa-dashboard"
+    // },
     {
       url_name: "profile",
       web_name: "User Profile",
