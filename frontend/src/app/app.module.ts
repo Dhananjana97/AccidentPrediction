@@ -34,7 +34,7 @@ import { ApproveComponent } from './components/approve/approve.component';
 import { AccidentpredictionComponent } from './components/accidentprediction/accidentprediction.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PredictionwarningComponent } from './components/dialogs/predictionwarning/predictionwarning.component';
-
+import {MatChipsModule} from '@angular/material/chips';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,6 +67,7 @@ import { PredictionwarningComponent } from './components/dialogs/predictionwarni
     AngularFireAuthModule,
     AppRoutingModule,
     MaterialModule,
+    MatChipsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],

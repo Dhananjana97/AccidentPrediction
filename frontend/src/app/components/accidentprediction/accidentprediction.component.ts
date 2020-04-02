@@ -89,15 +89,16 @@ export class AccidentpredictionComponent implements OnInit {
         "Holiday": this.prediction_form.value.holiday,
         "Weather Conditions": this.prediction_form.value.weather
       }
-  
+      console.log(payload);
   
       this.restService.getAccidentPrediction(payload).subscribe(data => {
         if (data['data']) {
           this.predicted_data = parseInt(data['data']);
+          //console.log(data)
         }
   
       }, err => {
-        console.log(err);
+        //console.log(err);
       })
     }else{
       this.openDialog("Warning!", "Fill all the inputs.")
