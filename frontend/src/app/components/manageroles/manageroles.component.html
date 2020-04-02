@@ -16,9 +16,9 @@
             <td>{{user.name}}</td>
             <td>{{user.emailAddress}}</td>
             <td>{{user.rank}}</td>
-            <td><button (click)="editProfile(user)">Profile</button></td>
-            <td><button (click)="deleteRole(user.userId,role,user.name)" *ngFor="let role of user.own_roles">{{role}}</button></td>
-            <td><button (click)="addRole(user.userId,role,user.name)" *ngFor="let role of user.other_roles">{{role}}</button></td>
+            <td><button class="btn btn-primary btn-sm btn-login" (click)="editProfile(user)">Profile</button></td>
+            <td><button class="btn btn-primary btn-sm btn-login" (click)="deleteRole(user.userId,role,user.name)" *ngFor="let role of user.own_roles">{{role}}</button></td>
+            <td><button class="btn btn-primary btn-sm btn-login" (click)="addRole(user.userId,role,user.name)" *ngFor="let role of user.other_roles">{{role}}</button></td>
         </tr>
     </tbody>
 </table>

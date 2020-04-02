@@ -18,5 +18,5 @@ table tr td:first-child::before {
 }
 
 button {
-    margin: 3px;
+    margin: 1px;
 }
