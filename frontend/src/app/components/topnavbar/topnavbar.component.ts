@@ -25,10 +25,8 @@ export class TopnavbarComponent implements OnInit {
     smoothlyMenu();
   }
   signout() {
-    console.log("loggedout");
     this.afAuth.auth.signOut();
     this.logService.setLog(false);
-    console.log(this.logService.getLoginInfo());
     this.router.navigate(["login"]);
   }
   

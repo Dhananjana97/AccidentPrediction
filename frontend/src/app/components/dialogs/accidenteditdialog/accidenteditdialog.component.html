@@ -15,7 +15,7 @@
         <div class="col-sm-6">
             <div class="inputBox ">
                 <div class="inputText">Road surface</div>
-                <select [(ngModel)]="data.road_surface" name="road-surface" class="input" value={{data.road_surface}}>
+                <select [(ngModel)]="data.road_surface" name="road-surface" class="input">
                     <option *ngFor="let surface of road_surface">{{surface}}</option>
                 </select>
             </div>
@@ -24,7 +24,7 @@
         <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">Vehicle Amount</div>
-                <input [(ngModel)]="data.no_of_vehicles" type="text" name="vehicle-amount" class="input" value={{data.no_of_vehicles}}>
+                <input [(ngModel)]="data.no_of_vehicles" type="text" name="vehicle-amount" class="input">
             </div>
         </div>
     </div>
@@ -32,14 +32,14 @@
         <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">Date</div>
-                <input [(ngModel)]="data.date" type="text" name="date" class="input" value={{data.date}}>
+                <input [(ngModel)]="data.date" type="date" name="date" class="input">
             </div>
         </div>
 
         <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">Time</div>
-                <input [(ngModel)]="data.time" type="text" name="time" class="input" value={{data.time}}>
+                <input [(ngModel)]="data.time" type="time" name="time" class="input">
             </div>
         </div>
     </div>
@@ -48,7 +48,7 @@
         <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">First road class</div>
-                <input [(ngModel)]="data._1st_road_class" type="text" name="first-road-class" class="input" value={{data._1st_road_class}}>
+                <input [(ngModel)]="data._1st_road_class" type="text" name="first-road-class" class="input">
             </div>
         </div>
 
@@ -64,17 +64,25 @@
         <div class="col-sm-6">
             <div class="inputBox ">
                 <div class="inputText">Lightning condition</div>
-                <select [(ngModel)]="data.lightning_conditions" name="linghtning" class="input" value={{data.lightning_conditions}}>
+                <select [(ngModel)]="data.lightning_conditions" name="linghtning" class="input">
                     <option *ngFor="let light of lightning_conditions">{{light}}</option>
                 </select>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">Weather condition</div>
                 <input [(ngModel)]="data.weather" type="text" name="weather" class="input" value={{data.weather}}>
+            </div>
+        </div> -->
+        <div class="col-sm-6">
+            <div class="inputBox ">
+                <div class="inputText">Weather condition</div>
+                <select [(ngModel)]="data.weather" name="holiday" class="input">
+                    <option *ngFor="let weather of weathers">{{weather}}</option>
+                </select>
             </div>
         </div>
     </div>
@@ -82,7 +90,7 @@
         <div class="col-sm-6">
             <div class="inputBox ">
                 <div class="inputText">Vehicle Type</div>
-                <select [(ngModel)]="data.vehicleType" name="vehicle-type" class="input" value={{data.vehicleType}}>
+                <select [(ngModel)]="data.vehicleType" name="vehicle-type" class="input">
                     <option *ngFor="let vehicle of vehicle_type">{{vehicle}}</option>
                 </select>
             </div>
@@ -106,7 +114,7 @@
         <div class="col-sm-6">
             <div class="inputBox ">
                 <div class="inputText">Casualty class</div>
-                <select [(ngModel)]="data._class" name="class" class="input" value={{data._class}}>
+                <select [(ngModel)]="data._class" name="class" class="input">
                     <option *ngFor="let class of classes">{{class}}</option>
                 </select>
             </div>
@@ -114,7 +122,7 @@
         <div class="col-sm-6">
             <div class="inputBox ">
                 <div class="inputText">Casualty severity</div>
-                <select [(ngModel)]="data.casualty_severity" name="severity" class="input" value={{data.casualty_severity}}>
+                <select [(ngModel)]="data.casualty_severity" name="severity" class="input">
                     <option *ngFor="let severe of casualty_severity">{{severe}}</option>
                 </select>
             </div>
@@ -137,7 +145,7 @@
         <div class="col-sm-6">
             <div class="inputBox ">
                 <div class="inputText">Casualty Sex</div>
-                <select [(ngModel)]="data.sex_of_casualty" name="sex" class="input" value={{data.sex_of_casualty}}>
+                <select [(ngModel)]="data.sex_of_casualty" name="sex" class="input">
                     <option *ngFor="let sex of sex_of_casualty">{{sex}}</option>
                 </select>
             </div>
@@ -146,15 +154,23 @@
         <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText">Age</div>
-                <input [(ngModel)]="data.age_of_casualty" type="text" name="age" class="input" value={{data.age_of_casualty}}>
+                <input [(ngModel)]="data.age_of_casualty" type="text" name="age" class="input">
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
             <div class="inputBox">
                 <div class="inputText"> City </div>
                 <input [(ngModel)]="data.city" type="text" name="class" class="input" value={{data.city}}>
+            </div>
+        </div> -->
+        <div class="col-sm-6">
+            <div class="inputBox ">
+                <div class="inputText">City</div>
+                <select [(ngModel)]="data.city" name="holiday" class="input">
+                    <option *ngFor="let city of cities">{{city}}</option>
+                </select>
             </div>
         </div>
         <!-- <div class="col-sm-6">
@@ -166,7 +182,7 @@
         <div class="col-sm-6">
             <div class="inputBox ">
                 <div class="inputText">Holiday</div>
-                <select [(ngModel)]="data.holiday" name="holiday" class="input" value={{data.holiday}}>
+                <select [(ngModel)]="data.holiday" name="holiday" class="input">
                     <option *ngFor="let holiday of holiday_bool">{{holiday}}</option>
                 </select>
             </div>
@@ -176,19 +192,19 @@
         <div class="col-sm-4">
             <div class="inputBox">
                 <div class="inputText"> Affected drivers </div>
-                <input [(ngModel)]="data.affected_drivers" type="text" name="class" class="input" value={{data.affected_drivers}}>
+                <input [(ngModel)]="data.affected_drivers" type="text" name="class" class="input">
             </div>
         </div>
         <div class="col-sm-4">
             <div class="inputBox">
                 <div class="inputText"> Affected pedetrians </div>
-                <input [(ngModel)]="data.affected_pedestrians" type="text" name="class" class="input" value={{data.affected_pedestrians}}>
+                <input [(ngModel)]="data.affected_pedestrians" type="text" name="class" class="input">
             </div>
         </div>
         <div class="col-sm-4">
             <div class="inputBox">
                 <div class="inputText"> Affected passengers </div>
-                <input [(ngModel)]="data.affected_passengers" type="text" name="class" class="input" value={{data.affected_passengers}}>
+                <input [(ngModel)]="data.affected_passengers" type="text" name="class" class="input">
             </div>
         </div>
     </div>

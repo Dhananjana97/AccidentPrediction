@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { AdminGuard, StaffGuard, GuestGuard, AuthGuard, UnAuthGuard } from './guards/guard';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { DatePipe } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
 import { appRoutes } from "./app.routes";
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -74,6 +75,7 @@ import {MatChipsModule} from '@angular/material/chips';
   providers: [
     AdminGuard,
     StaffGuard,
+    DatePipe,
     GuestGuard,
     AuthGuard,
     UnAuthGuard,

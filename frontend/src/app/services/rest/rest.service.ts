@@ -28,7 +28,6 @@ export class RestService {
       );
   }
   changeUserProfile(name, rank) {
-    console.log("bla bla bla")
     return this.http.post(this.host_url+"user/updateuser", { name: name, rank: rank })
       .pipe(
         retry(3), // retry a failed request up to 3 times

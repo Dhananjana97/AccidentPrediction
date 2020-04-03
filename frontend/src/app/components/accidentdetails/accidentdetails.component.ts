@@ -89,13 +89,21 @@ export class AccidentdetailsComponent implements OnInit {
   }
 
   public edit(accident_object) {
+
     let new_object = this.clone(accident_object);
+    new_object["date"] = this.dateToForm(new_object["date"]);
+    new_object["time"] = this.timeToForm(new_object["time"]);
     let dialogRef = this.dialog.open(AccidenteditdialogComponent, { data: new_object });
     dialogRef.afterClosed().subscribe(result => {
+
+
       if (!result) { return null }
+      result["date"] = this.dateFromForm(result["date"]);
+      result["time"] = this.timeFromForm(result["time"])
       let isFormValid = this.isFormValid(result);
       if (isFormValid != true) { this.SnackBar.openSnackBar(isFormValid.message,"error");
       ; return null }
+ 
       this.RestService.editAccident(result).subscribe(
         (success) => {
           this.getAllAccidents(this.current_state.date, this.current_state.city, this.current_state.pageNumber);
@@ -114,8 +122,10 @@ export class AccidentdetailsComponent implements OnInit {
     let dialogRef = this.dialog.open(AccidenteditdialogComponent, { data: {} });
     dialogRef.afterClosed().subscribe(result => {
       if (!result) { return null }
+      result["date"] = this.dateFromForm(result["date"]);
+      result["time"] = this.timeFromForm(result["time"])
       let isFormValid = this.isFormValid(result);
-      if (isFormValid != true) {this.SnackBar.openSnackBar("The accident wasn't added successfully. Try again!","error");
+      if (isFormValid != true) {this.SnackBar.openSnackBar(isFormValid.message,"error");
       ; return null }
       this.RestService.addAccident(result).subscribe(
         (success) => {
@@ -156,6 +166,48 @@ export class AccidentdetailsComponent implements OnInit {
 
 
     return true;
+  }
+
+  private dateToForm(date){
+    let date_list = date.trim().split("/");
+    if (date_list.length!=3){
+      return "";
+    }
+    let month = date_list[0];
+    if (month.length==1){month="0"+month}
+    let datee = date_list[1];
+    if (datee.length==1){datee="0"+datee}
+    let year = date_list[2];
+    return year+"-"+month+"-"+datee;
+  }
+
+  private dateFromForm(date){
+    if (!date){
+      return ""
+    }
+    let date_list = date.split("-");
+    if (date_list.length!=3){
+      return "";
+    }
+    let month = date_list[1];
+    let datee = date_list[2];
+    let year = date_list[0];
+    return month+"/"+datee+"/"+year;
+  }
+
+  private timeToForm(timeIn){
+    if (typeof timeIn == "string" && timeIn.trim().length == 4){
+      return timeIn.substring(0,2)+":"+timeIn.substring(2,4);
+    }
+    return ""
+  }
+
+  private timeFromForm(timeIn){
+    if (typeof timeIn == "string" && timeIn.trim().length == 5){
+      let time_list = timeIn.split(":");
+      return time_list[0]+time_list[1]
+    }
+    return ""
   }
 
   public displayedColumns: string[] = [
