@@ -1,24 +1,26 @@
-<table class="table">
-    <thead class="thread">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Rank</th>
-            <th scope="col">Profile</th>
-            <th scope="col">Current Roles</th>
-            <th scope="col">New Roles</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let user of userData">
-            <td></td>
-            <td>{{user.name}}</td>
-            <td>{{user.emailAddress}}</td>
-            <td>{{user.rank}}</td>
-            <td><button class="btn btn-primary btn-sm btn-login" (click)="editProfile(user)">Profile</button></td>
-            <td><button class="btn btn-primary btn-sm btn-login" (click)="deleteRole(user.userId,role,user.name)" *ngFor="let role of user.own_roles">{{role}}</button></td>
-            <td><button class="btn btn-primary btn-sm btn-login" (click)="addRole(user.userId,role,user.name)" *ngFor="let role of user.other_roles">{{role}}</button></td>
-        </tr>
-    </tbody>
-</table>
+<div class="div-table">
+    <table class="table">
+        <thead class="thread">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Rank</th>
+                <th scope="col">Profile</th>
+                <th scope="col">Current Roles</th>
+                <th scope="col">New Roles</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of userData">
+                <td></td>
+                <td>{{user.name}}</td>
+                <td>{{user.emailAddress}}</td>
+                <td>{{user.rank}}</td>
+                <td><button class="btn btn-primary btn-sm btn-login" (click)="editProfile(user)">Profile</button></td>
+                <td><button class="btn btn-primary btn-sm btn-login" (click)="deleteRole(user.userId,role,user.name)" *ngFor="let role of user.own_roles">{{role}}</button></td>
+                <td><button class="btn btn-primary btn-sm btn-login" (click)="addRole(user.userId,role,user.name)" *ngFor="let role of user.other_roles">{{role}}</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

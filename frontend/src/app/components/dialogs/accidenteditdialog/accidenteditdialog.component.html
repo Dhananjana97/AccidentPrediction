@@ -180,9 +180,12 @@
         </div>
     </div>
 
-    <div class="row">
-        <div mat-dialog-action class="col-sm-12">
-            <button [mat-dialog-close]="data" mat-raised-button>Edit</button>
+    <div class="row button-row">
+        <div mat-dialog-action class="col-sm-3 ">
+            <button class="btn btn-primary btn-sm" [mat-dialog-close]="data" mat-raised-button>Okay</button>
+        </div>
+        <div mat-dialog-action class="col-sm-3 ">
+            <button class="btn btn-danger btn-sm" [mat-dialog-close]=false mat-raised-button>Cancel</button>
         </div>
     </div>
 </form>

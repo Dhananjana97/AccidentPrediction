@@ -48,6 +48,7 @@ button {
 
 .full_table {
     margin: 23px;
+    overflow-x: scroll;
 }
 
 .mat-icon {
@@ -65,6 +66,11 @@ button {
 th {
     background-color: #2f4050;
     color: cornsilk;
+}
+
+.row.filter {
+    position: relative;
+    margin-left: auto;
 }
 
 
