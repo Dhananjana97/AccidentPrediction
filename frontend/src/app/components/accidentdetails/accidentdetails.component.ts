@@ -149,7 +149,7 @@ export class AccidentdetailsComponent implements OnInit {
   }
 
   private isFormValid(obj) {
-    if (Object.keys(obj).length < 17) {
+    if (Object.keys(obj).length < 16) {
       return { message: "All fields should be completed!" }
     }
     for (let prop in obj) {
@@ -157,7 +157,7 @@ export class AccidentdetailsComponent implements OnInit {
         return { message: "Insert values for all fileds!" };
       }
     }
-    if (!Number(obj.no_of_vehicles + obj.affected_drivers+obj.affected_passengers+obj.affected_pedestrians + obj.time + obj.age_of_casualty)) {
+    if (!Number(obj.no_of_vehicles + obj.affected_drivers+obj.affected_passengers+obj.affected_pedestrians + obj.time + obj.no_of_female +obj.no_of_male)) {
       return { message: "Insert correct values!" }
     }
     if (!Number(new Date(obj.date))) {
@@ -189,9 +189,9 @@ export class AccidentdetailsComponent implements OnInit {
     if (date_list.length!=3){
       return "";
     }
-    let month = date_list[1];
-    let datee = date_list[2];
-    let year = date_list[0];
+    let month = date_list[1].replace(/^0+/, '');
+    let datee = date_list[2].replace(/^0+/, '');
+    let year = date_list[0].replace(/^0+/, '');
     return month+"/"+datee+"/"+year;
   }
 
@@ -220,9 +220,8 @@ export class AccidentdetailsComponent implements OnInit {
     'lightning condition',
     'weather condition',
     'affected drivers/pedestrians/passengers',
-    'casualty class',
-    'casualty severity',
-    'casualty sex and age',
+    'severity',
+    'casualty male female',
     'vehicle type',
     'Action'
   ];
@@ -238,10 +237,9 @@ export interface Accident {
   road_surface: String,
   lightning_conditions: String,
   weather: String,
-  _class: String,
-  casualty_severity: String,
-  sex_of_casualty: String,
-  age_of_casualty: String,
+  severity: String,
+  no_of_male: String,
+  no_of_female: String,
   vehicleType: String,
   affected_drivers: Number,
   affected_pedestrians:Number,
