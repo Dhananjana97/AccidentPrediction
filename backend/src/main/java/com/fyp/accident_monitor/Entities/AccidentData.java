@@ -15,10 +15,6 @@ public class AccidentData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String reference_number;
-    private String grid_ref_easting;
-    private String grid_ref_northing;
-
     private int no_of_vehicles;
     private String date;
     private String time;
@@ -51,9 +47,6 @@ public class AccidentData {
                         String sex_of_casualty, String age_of_casualty, String vehicle_type) {
         super();
         this.id = id;
-        this.reference_number = reference_number;
-        this.grid_ref_easting = grid_ref_easting;
-        this.grid_ref_northing = grid_ref_northing;
         this.no_of_vehicles = no_of_vehicles;
         this.date = date;
         this.time = time;
@@ -75,30 +68,6 @@ public class AccidentData {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getReference_number() {
-        return reference_number;
-    }
-
-    public void setReference_number(String reference_number) {
-        this.reference_number = reference_number;
-    }
-
-    public String getGrid_ref_easting() {
-        return grid_ref_easting;
-    }
-
-    public void setGrid_ref_easting(String grid_ref_easting) {
-        this.grid_ref_easting = grid_ref_easting;
-    }
-
-    public String getGrid_ref_northing() {
-        return grid_ref_northing;
-    }
-
-    public void setGrid_ref_northing(String grid_ref_northing) {
-        this.grid_ref_northing = grid_ref_northing;
     }
 
     public int getNo_of_vehicles() {
