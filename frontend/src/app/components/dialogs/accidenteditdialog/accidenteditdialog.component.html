@@ -95,14 +95,7 @@
                 <input [(ngModel)]="data.vehicleType" type="text" name="vehicle-type" class="input" value={{data.vehicleType}}>
             </div>
         </div> -->
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="inputBox">
-                <div class="inputText"> Casualty </div>
-                <input [(ngModel)]="data.casualty" type="text" name="class" class="input" value={{data.casualty}}>
-            </div>
-        </div>
-    </div>
+
     <div class="row">
         <!-- <div class="col-sm-6">
             <div class="inputBox">
@@ -176,6 +169,26 @@
                 <select [(ngModel)]="data.holiday" name="holiday" class="input" value={{data.holiday}}>
                     <option *ngFor="let holiday of holiday_bool">{{holiday}}</option>
                 </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="inputBox">
+                <div class="inputText"> Affected drivers </div>
+                <input [(ngModel)]="data.affected_drivers" type="text" name="class" class="input" value={{data.affected_drivers}}>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="inputBox">
+                <div class="inputText"> Affected pedetrians </div>
+                <input [(ngModel)]="data.affected_pedestrians" type="text" name="class" class="input" value={{data.affected_pedestrians}}>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="inputBox">
+                <div class="inputText"> Affected passengers </div>
+                <input [(ngModel)]="data.affected_passengers" type="text" name="class" class="input" value={{data.affected_passengers}}>
             </div>
         </div>
     </div>

@@ -34,7 +34,6 @@ export class AccidentdetailsComponent implements OnInit {
   }
 
   public getAllAccidents(date, city, page) {
-    console.log(date+city+page)
     if (!Number(new Date(date))) {
       if (date == "") { date = null }
       else {this.SnackBar.openSnackBar("Insert correct date input!","error"); return null; }
@@ -140,15 +139,15 @@ export class AccidentdetailsComponent implements OnInit {
   }
 
   private isFormValid(obj) {
-    if (Object.keys(obj).length < 15) {
+    if (Object.keys(obj).length < 17) {
       return { message: "All fields should be completed!" }
     }
     for (let prop in obj) {
-      if (obj[prop] == "" && typeof obj[prop] !="boolean") {
+      if (obj[prop] == "" && typeof obj[prop] !="boolean" && !obj[prop].toString()) {
         return { message: "Insert values for all fileds!" };
       }
     }
-    if (!Number(obj.no_of_vehicles + obj.casualty + obj.time + obj.age_of_casualty)) {
+    if (!Number(obj.no_of_vehicles + obj.affected_drivers+obj.affected_passengers+obj.affected_pedestrians + obj.time + obj.age_of_casualty)) {
       return { message: "Insert correct values!" }
     }
     if (!Number(new Date(obj.date))) {
@@ -168,7 +167,7 @@ export class AccidentdetailsComponent implements OnInit {
     'first road class',
     'lightning condition',
     'weather condition',
-    'casualty',
+    'affected drivers/pedestrians/passengers',
     'casualty class',
     'casualty severity',
     'casualty sex and age',
@@ -192,7 +191,9 @@ export interface Accident {
   sex_of_casualty: String,
   age_of_casualty: String,
   vehicleType: String,
-  casualty: String,
+  affected_drivers: Number,
+  affected_pedestrians:Number,
+  affected_passengers:Number,
   city: String,
   holiday: boolean
 };

@@ -80,9 +80,9 @@
             <td mat-cell *matCellDef="let element"> {{element.weather}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="casualty">
-            <th mat-header-cell *matHeaderCellDef> Casualty </th>
-            <td mat-cell *matCellDef="let element"> {{element.casualty}} </td>
+        <ng-container matColumnDef="affected drivers/pedestrians/passengers">
+            <th mat-header-cell *matHeaderCellDef> Affected <br> drivers/pedestrians<br> and passengers </th>
+            <td mat-cell *matCellDef="let element"> {{element.affected_drivers}}<br>{{element.affected_pedestrians}}<br>{{element.affected_passengers}} </td>
         </ng-container>
 
         <ng-container matColumnDef="casualty class">
