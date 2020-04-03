@@ -71,14 +71,23 @@ export class ManagerolesComponent implements OnInit {
 
 
   public editProfile(user) {
-    let dialogRef = this.dialog.open(EditprofileComponent, { data: user });
+    let new_user_obejct = this.clone(user);
+    let dialogRef = this.dialog.open(EditprofileComponent, { data: new_user_obejct });
     dialogRef.afterClosed().subscribe(result => {
       if (result == false) {
         return null;
       }
-      else if (result == true) {
-        this.userData = this.setAllUsers();
-        console.log("success ");
+      else{
+        this.restService.editUserProfile(result).subscribe(
+        (success)=>{
+          this.snackBar.openSnackBar("User profile changed successfully","success");
+          this.userData = this.setAllUsers();
+        },
+        (error)=>{
+          this.snackBar.openSnackBar("Something went wrong. Please try again later!","error");
+          console.log(error);
+          return null;
+        });
       }
     });
   }
@@ -127,5 +136,11 @@ export class ManagerolesComponent implements OnInit {
       }
     });
   }
-
+  private clone(accident_object) {
+    let temp_object = {};
+    for (let key of Object.keys(accident_object)) {
+      temp_object[key] = accident_object[key];
+    }
+    return temp_object;
+  }
 }

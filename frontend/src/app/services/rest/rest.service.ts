@@ -81,7 +81,6 @@ export class RestService {
     );
   }
   addAccident(data){
-    console.log(data);
     return this.http.post(this.host_url+"accident/insertaccident",data)
     .pipe(
       retry(3), // retry a failed request up to 3 times
@@ -105,6 +104,14 @@ export class RestService {
 
   getAccidentPrediction(data){
     return this.http.post("https://pzodbmbt6a.execute-api.us-east-2.amazonaws.com/live/accidentprediction", data);
+  }
+
+  editUserProfile(data){
+    return this.http.put(this.host_url+"user/updateuser",data)
+    .pipe(
+      retry(3), // retry a failed request up to 3 times
+      catchError(this.handleError) // then handle the error
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

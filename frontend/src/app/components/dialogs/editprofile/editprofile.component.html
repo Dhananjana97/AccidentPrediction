@@ -1,34 +1,26 @@
-<div class="authClass" *ngIf="getEditMode()">
+<div class="authClass">
     <h1>{{getUserInfo("emailAddress")}}</h1>
     <form class="example-form">
 
         <mat-form-field class="example-full-width">
             <mat-label>Name</mat-label>
-            <input minlength="4" matInput required #name [value]="getUserInfo('name')">
+            <input minlength="4" matInput required name="name" [value]="data.name" [(ngModel)]="data.name">
         </mat-form-field>
         <br>
         <mat-form-field class="example-full-width">
             <mat-label>Rank</mat-label>
-            <select matNativeControl required #rank [value]='getUserInfo("rank")'>
+            <select matNativeControl required name="rank" value='data.rank' [(ngModel)]="data.rank">
                 <option *ngFor="let rank of getRanks()"> {{rank}} </option>
             </select>
         </mat-form-field>
         <br>
-        <button type="submit" (click)="editProfile(name.value ,rank.value)">Edit</button>
+        <div class="row button-row">
+            <div mat-dialog-action class="col-sm-3 ">
+                <button class="btn btn-primary btn-sm" [mat-dialog-close]="data" mat-raised-button>Edit</button>
+            </div>
+            <div mat-dialog-action class="col-sm-3 ">
+                <button class="btn btn-danger btn-sm" [mat-dialog-close]="false" mat-raised-button>Cancel</button>
+            </div>
+        </div>
     </form>
-</div>
-
-<div *ngIf="!getEditMode()">
-    <div *ngIf="getSuccessMode()">
-        <h1> changed successfully</h1>
-        <div mat-dialog-action class="col-sm-12">
-            <button [mat-dialog-close]=true mat-raised-button>Edit</button>
-        </div>
-    </div>
-    <div *ngIf="!getSuccessMode()">
-        <h1> Error! </h1>
-        <div mat-dialog-action class="col-sm-12">
-            <button [mat-dialog-close]=false mat-raised-button>Edit</button>
-        </div>
-    </div>
 </div>
