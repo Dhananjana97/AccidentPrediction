@@ -25,14 +25,16 @@ public class AccidentData {
     private String road_surface;
     private String lightning_conditions;
     private String weather;
-    private String casualty;
 
-    @Column(name = "class")
-    private String _class;
 
-    private String casualty_severity;
-    private String sex_of_casualty;
-    private String age_of_casualty;
+    private String severity;
+    private Integer no_of_male;
+    private Integer no_of_female;
+
+
+    private Integer affected_drivers;
+    private Integer affected_pedestrians;
+    private Integer affected_passengers;
     private String vehicleType;
     private String city;
     private boolean holiday;
@@ -41,10 +43,10 @@ public class AccidentData {
         super();
     }
 
-    public AccidentData(int id, String reference_number, String grid_ref_easting, String grid_ref_northing,
+    public AccidentData(int id,
                         int no_of_vehicles, String date, String time, String _1st_road_class, String road_surface,
-                        String lightning_conditions, String weather, String casualty, String _class, String casualty_severity,
-                        String sex_of_casualty, String age_of_casualty, String vehicle_type) {
+                        String lightning_conditions, String weather, String severity, int affected_drivers, int affected_passengers,
+                        int affected_pedestrians, Integer no_of_male, Integer no_of_female, String vehicle_type, String city, boolean holiday) {
         super();
         this.id = id;
         this.no_of_vehicles = no_of_vehicles;
@@ -54,12 +56,15 @@ public class AccidentData {
         this.road_surface = road_surface;
         this.lightning_conditions = lightning_conditions;
         this.weather = weather;
-        this.casualty = casualty;
-        this._class = _class;
-        this.casualty_severity = casualty_severity;
-        this.sex_of_casualty = sex_of_casualty;
-        this.age_of_casualty = age_of_casualty;
+        this.severity = severity;
+        this.no_of_male = no_of_male;
+        this.no_of_female = no_of_female;
+        this.affected_drivers = affected_drivers;
+        this.affected_passengers = affected_passengers;
+        this.affected_pedestrians = affected_pedestrians;
         this.vehicleType = vehicle_type;
+        this.city = city;
+        this.holiday = holiday;
     }
 
     public int getId() {
@@ -126,46 +131,6 @@ public class AccidentData {
         this.weather = weather;
     }
 
-    public String getCasualty() {
-        return casualty;
-    }
-
-    public void setCasualty(String casualty) {
-        this.casualty = casualty;
-    }
-
-    public String get_class() {
-        return _class;
-    }
-
-    public void set_class(String _class) {
-        this._class = _class;
-    }
-
-    public String getCasualty_severity() {
-        return casualty_severity;
-    }
-
-    public void setCasualty_severity(String casualty_severity) {
-        this.casualty_severity = casualty_severity;
-    }
-
-    public String getSex_of_casualty() {
-        return sex_of_casualty;
-    }
-
-    public void setSex_of_casualty(String sex_of_casualty) {
-        this.sex_of_casualty = sex_of_casualty;
-    }
-
-    public String getAge_of_casualty() {
-        return age_of_casualty;
-    }
-
-    public void setAge_of_casualty(String age_of_casualty) {
-        this.age_of_casualty = age_of_casualty;
-    }
-
     public String getVehicleType() {
         return vehicleType;
     }
@@ -189,5 +154,54 @@ public class AccidentData {
 
     public void setHoliday(boolean holiday) {
         this.holiday = holiday;
+    }
+
+
+    public Integer getAffected_drivers() {
+        return affected_drivers;
+    }
+
+    public void setAffected_drivers(Integer affected_drivers) {
+        this.affected_drivers = affected_drivers;
+    }
+
+    public Integer getAffected_pedestrians() {
+        return affected_pedestrians;
+    }
+
+    public void setAffected_pedestrians(Integer affected_pedestrians) {
+        this.affected_pedestrians = affected_pedestrians;
+    }
+
+    public Integer getAffected_passengers() {
+        return affected_passengers;
+    }
+
+    public void setAffected_passengers(Integer affected_passengers) {
+        this.affected_passengers = affected_passengers;
+    }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public Integer getNo_of_male() {
+        return no_of_male;
+    }
+
+    public void setNo_of_male(Integer no_of_male) {
+        this.no_of_male = no_of_male;
+    }
+
+    public Integer getNo_of_female() {
+        return no_of_female;
+    }
+
+    public void setNo_of_female(Integer no_of_female) {
+        this.no_of_female = no_of_female;
     }
 }
